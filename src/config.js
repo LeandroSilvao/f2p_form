@@ -1,4 +1,4 @@
-const proxy = "https://8790072319b7.ngrok.io/"
+const proxy = "https://8147975a629e.ngrok.io"
 // const proxy = "http://localhost:2525/"
 // const proxy = "https://cors-anywhere.herokuapp.com/"
 
