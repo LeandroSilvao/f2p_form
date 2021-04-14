@@ -1,0 +1,4 @@
+.divPhoneTypeSelect {
+  display: flex;
+  flex-direction: column;
+}

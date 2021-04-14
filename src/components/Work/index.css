@@ -1,0 +1,9 @@
+.divWork {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorCNPJ {
+  color: var(--red);
+  font-size: 0.75rem;
+}

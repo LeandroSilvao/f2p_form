@@ -1,0 +1,4 @@
+.clientAdress {
+  display: flex;
+  flex-direction: column;
+}

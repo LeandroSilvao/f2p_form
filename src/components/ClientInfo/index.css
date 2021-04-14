@@ -1,0 +1,14 @@
+.clientInfo {
+  display: flex;
+  flex-direction: column;
+  /* border: solid 1px red; */
+}
+
+
+
+.color{
+  color: #4B4B4B;
+  color: #bdbbbb;
+  color: #3B9E22;
+  color: #5965E0;
+}

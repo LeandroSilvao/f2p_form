@@ -1,0 +1,67 @@
+.divBankAccounts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bankAccounts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-self: center;
+  width: 100%;
+}
+.account {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  word-break: break-all;
+  max-width: 150px;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: solid 1px #4B4B4B;
+  margin: 5px;
+}
+
+.addAccount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.addAccount>button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 3rem;
+  height: 1.5rem;
+  font-size: 0.7rem;
+  width: 90%;
+  background-color: #4B4B4B;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.addAccount>button:hover {
+  background-color: #4b4b4bbb;
+}
+.account>button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  font-size: 1rem;
+  text-align: center;
+  color: rgb(236, 102, 102);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.account>button:hover {
+  background-color: rgb(236, 62, 62);
+  color: #fff;
+}
