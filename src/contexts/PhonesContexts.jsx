@@ -21,7 +21,7 @@ const InitialState = {
 export const PhonesContext = createContext(InitialState);
 
 export const PhonesProvider = (props) => {
-    const { _Json_PhoneInfo, errorOnApi } = useContext(FormContext)
+    const { _Json_PhoneInfo } = useContext(FormContext)
     const [phoneTypeId, setPhoneTypeId] = useState('')
     const [countryCode, setCountryCode] = useState('')
     const [stateCode, setStateCode] = useState('')

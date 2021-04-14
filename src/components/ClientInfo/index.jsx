@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-import Switch from "react-switch";
 
 import Spouse from '../Spouse'
 import LegalRepresentative from '../LegalRepresentative'
@@ -11,6 +10,10 @@ import { SpouseProvider } from '../../contexts/Spouse';
 import { ClientInfoContext } from '../../contexts/ClientInfoContexts'
 import { FormContext } from '../../contexts/FormContexts'
 
+import { ValidCPF } from '../../utils'
+
+import Switch from "react-switch";
+import InputMask from "react-input-mask";
 
 import './index.css'
 
@@ -18,8 +21,8 @@ export default function ClientInfo() {
     const { languagePT } = useContext(FormContext)
     const {
         // States
-        name, shortName, age, birthDate, fatherName, motherName, taxPayerRegistry, genderId, gendersIds, maritalStatusId, nationality,
-        countryBirthId, countriesBirthId, stateBirthId, stateBirthName, statesBirth, professionalOccupationId, professionalOccupationsId,
+        name, shortName, birthDate, fatherName, motherName, taxPayerRegistry, genderId, gendersIds, maritalStatusId, nationality,
+        countriesBirthId, stateBirthId, statesBirth, professionalOccupationId, professionalOccupationsId,
         residenceInOtherCountryId, residencesInOtherCountryId, otherTaxResidencesCountryId, otherTaxResidenceCountryId,
         educationLevelId, educationsLevelId, ppeOccupation, usPerson, isAssociatedPerson, isAdministratorInAnotherAccount,
         maritalStatus, maritalAgreements, maritalAgreementId,
@@ -65,38 +68,6 @@ export default function ClientInfo() {
         isAcceptedOrderAttorney: languagePT ? 'Autoriza a transmissão de ordens por procurador' : 'Authorizes the transmission of orders by proxy',
     }
 
-    function ValidCPF(cpf) {
-        var Soma;
-        var Resto;
-        Soma = 0;
-        if (cpf === "00000000000") return false;
-        if (cpf === "11111111111") return false;
-        if (cpf === "22222222222") return false;
-        if (cpf === "33333333333") return false;
-        if (cpf === "44444444444") return false;
-        if (cpf === "55555555555") return false;
-        if (cpf === "66666666666") return false;
-        if (cpf === "77777777777") return false;
-        if (cpf === "88888888888") return false;
-
-        if (cpf.includes('.')) cpf = cpf.replace(/\./g, '')
-        if (cpf.includes('-')) cpf = cpf.replace(/-/g, '')
-        // if (cpf.includes('-')) cpf = cpf.replace(/\-/g, '')
-
-        for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        Soma = 0;
-        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(10, 11))) return false;
-        return true;
-    }
     function OnChangeFields(e) {
         const { id, value, selectedIndex, options } = e.target
         switch (id) {
@@ -134,10 +105,11 @@ export default function ClientInfo() {
                 setmotherName(value)
                 break;
             case 'taxPayerRegistry':
+                const cpf = value.replace(/[^\d]+/g, '');
                 settaxPayerRegistry(value)
-                if (value.length < 11) setErrorCpf(false)
-                else if (value.length === 11) {
-                    if (ValidCPF(value)) {
+                if (cpf.length < 11) setErrorCpf(false)
+                else if (cpf.length === 11) {
+                    if (ValidCPF(cpf)) {
                         setErrorCpf(false)
                         settaxPayerRegistry(value)
                     }
@@ -146,7 +118,7 @@ export default function ClientInfo() {
                         setErrorCpf(true)
                     }
                 }
-                else if (value.length > 11) {
+                else if (cpf.length > 11) {
                     setErrorCpf(true)
                 }
                 break;
@@ -313,8 +285,8 @@ export default function ClientInfo() {
 
             <div>
                 <div className="d-flex">
-                    <input value={taxPayerRegistry} required type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
-                        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeFields(e)} />
+                    <InputMask value={taxPayerRegistry} required type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
+                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeFields(e)} />
                     <p className="required">*</p>
                 </div>
                 <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>

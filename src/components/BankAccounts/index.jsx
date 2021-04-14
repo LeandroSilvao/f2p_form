@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Fuse from 'fuse.js';
+
+import SelectSearch from 'react-select-search'
+import { FaTrash } from "react-icons/fa";
 
 import { FormContext } from "../../contexts/FormContexts";
+import { BankAccountsContext } from '../../contexts/BankContexts';
 
 import './index.css'
-import { BankAccountsContext } from '../../contexts/BankContexts';
-import { FaTrash, FaPlusSquare } from "react-icons/fa";
+import config from '../../config';
+import axios from 'axios';
 
 
 export default function BankAccounts(props) {
     const [error, setError] = useState(false)
-
     const { languagePT, _Json_BankAccounts } = useContext(FormContext)
     const { bankAccountTypes, banks,
         bankId, setbankId,
@@ -17,9 +21,7 @@ export default function BankAccounts(props) {
         account, setaccount,
         digit, setdigit,
         typeAccountId, settypeAccountId } = useContext(BankAccountsContext)
-
     const [clientBankAccounts, setclientBankAccounts] = useState([])
-
     const Labels = {
         selectItems: languagePT ? 'Selecione um item da lista e Preencha os campos' : 'Select an item from the list and fill the fields',
         SelecttypeAccountId: languagePT ? 'Tipo de conta bancária' : 'Bank account type',
@@ -30,7 +32,6 @@ export default function BankAccounts(props) {
         description: languagePT ? 'Contas bancarias' : 'Bank accounts',
         addAccount: languagePT ? 'CLIQUE PARA ADICIONAR CONTA BANCARIA' : 'CLICK TO ADD BANK ACCOUNT'
     }
-
 
     function RenderBankAccountTypes() {
         return (
@@ -106,7 +107,7 @@ export default function BankAccounts(props) {
                 setagency(value)
                 break;
             case 'bankId':
-                setbankId(value)
+                console.log(value)
                 break;
 
             default:
@@ -116,6 +117,23 @@ export default function BankAccounts(props) {
     useEffect(() => {
         _Json_BankAccounts(clientBankAccounts)
     }, [clientBankAccounts])
+
+
+    function fuzzySearch(options) {
+        const fuse = new Fuse(options, {
+            keys: ['name'],
+            threshold: 0.3,
+        });
+
+        return (value) => {
+            if (!value.length) {
+                return options;
+            }
+            let array = fuse.search(value)
+            array = array.map(i => i.item)
+            return array;
+        };
+    }
 
     return (
         <div className="divBankAccounts">
@@ -129,10 +147,16 @@ export default function BankAccounts(props) {
                 <p className="required">*</p>
             </div>
             <div className="d-flex">
-                <select required={clientBankAccounts.length === 0} name="bankId" id="bankId" onChange={e => OnChangeField(e)}>
+
+                <SelectSearch options={banks} search={true} filterOptions={fuzzySearch} name="name"
+                    emptyMessage="Not found" placeholder={Labels.SelectbankId} id="bankId"
+                    printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)}
+                    />
+
+                {/* <select required={clientBankAccounts.length === 0} name="bankId" id="bankId" onChange={e => OnChangeField(e)}>
                     <option defaultValue value="">{Labels.SelectbankId}</option>
                     {RenderBanks()}
-                </select>
+                </select> */}
                 <p className="required">*</p>
             </div>
 
@@ -151,7 +175,6 @@ export default function BankAccounts(props) {
                     placeholder={Labels.agency} onChange={e => OnChangeField(e)} />
                 <p className="required">*</p>
             </div>
-
 
             <div className="bankAccounts">
                 {RenderclientBankAccounts()}

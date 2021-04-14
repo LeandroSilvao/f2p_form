@@ -26,9 +26,9 @@ export const SpouseContext = createContext(InitialState);
 
 export const SpouseProvider = (props) => {
 
-    const { _Json_Spouse, errorOnApi } = useContext(FormContext)
+    const { _Json_Spouse } = useContext(FormContext)
 
-    const [spouseId, setspouseId] = useState('')
+    const [spouseId, setspouseId] = useState(0)
     const [name, setname] = useState('')
     const [taxPayerRegistry, settaxPayerRegistry] = useState('')
     const [identificationTypeId, setidentificationTypeId] = useState('')

@@ -24,8 +24,6 @@ export const WealthsTypeProvider = (props) => {
 
     const [typesWealthId, settypesWealthId] = useState([])
 
-    const {errorOnApi} = useContext(FormContext)
-
     useEffect(() => {
             GetWealthTypes()
     }, [])

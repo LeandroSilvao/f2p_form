@@ -4,6 +4,9 @@ import { FormContext } from "../../contexts/FormContexts";
 import { WorkContext } from '../../contexts/Work';
 import { ClientInfoContext } from '../../contexts/ClientInfoContexts';
 
+import {validarCNPJ} from '../../utils'
+import InputMask from "react-input-mask";
+
 import './index.css'
 
 export default function Work(props) {
@@ -12,10 +15,10 @@ export default function Work(props) {
     const { languagePT } = useContext(FormContext)
     const { setinstitutionName, setprofession, setoccupation, setcorporateTaxpayerRegistry,
         institutionName, profession, occupation, corporateTaxpayerRegistry, setIsRequired } = useContext(WorkContext)
-    const {professionalOccupationId} = useContext(ClientInfoContext)
+    const { professionalOccupationId } = useContext(ClientInfoContext)
 
-    const required = professionalOccupationId === "3" || professionalOccupationId === "6" || 
-    professionalOccupationId === "8" || professionalOccupationId === "9" || professionalOccupationId === "" ? false : true
+    const required = professionalOccupationId === "3" || professionalOccupationId === "6" ||
+        professionalOccupationId === "8" || professionalOccupationId === "9" || professionalOccupationId === "" ? false : true
 
     useEffect(() => {
         setIsRequired(required)
@@ -28,55 +31,7 @@ export default function Work(props) {
         profession: languagePT ? 'Profissão' : 'Profession',
         occupation: languagePT ? 'Cargo na instituição de trabalho' : 'Position in the work institution',
         corporateTaxpayerRegistry: languagePT ? 'CNPJ da instituição de trabalho' : 'CNPJ of the work institution',
-        cnpjTitle: languagePT ? 'Digite um cnpj valido, sem caracteres especiais (xxxxxxxxxxxxxx)' : 'Enter a valid cnpj, without special characters (xxxxxxxxxxxxxx)',
-    }
-    function validarCNPJ(cnpj) {
-        cnpj = cnpj.replace(/[^\d]+/g, '');
-        if (cnpj == '') return false;
-        if (cnpj.length != 14)
-            return false;
-        // Elimina CNPJs invalidos conhecidos
-        if (cnpj == "00000000000000" ||
-            cnpj == "11111111111111" ||
-            cnpj == "22222222222222" ||
-            cnpj == "33333333333333" ||
-            cnpj == "44444444444444" ||
-            cnpj == "55555555555555" ||
-            cnpj == "66666666666666" ||
-            cnpj == "77777777777777" ||
-            cnpj == "88888888888888" ||
-            cnpj == "99999999999999")
-            return false;
-
-        // Valida DVs
-        let tamanho = cnpj.length - 2
-        let numeros = cnpj.substring(0, tamanho);
-        let digitos = cnpj.substring(tamanho);
-        let soma = 0;
-        let pos = tamanho - 7;
-        for (let i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
-        }
-        let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado != digitos.charAt(0))
-            return false;
-
-        tamanho = tamanho + 1;
-        numeros = cnpj.substring(0, tamanho);
-        soma = 0;
-        pos = tamanho - 7;
-        for (let i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
-        }
-        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado != digitos.charAt(1))
-            return false;
-
-        return true;
+        cnpjTitle: languagePT ? 'Digite um cnpj valido' : 'Enter a valid cnpj',
     }
 
     function OnChangeField(e) {
@@ -93,9 +48,11 @@ export default function Work(props) {
                 break;
             case 'corporateTaxpayerRegistry':
                 setcorporateTaxpayerRegistry(value)
-                if (value.length < 14) setErrorCNPJ(false)
-                else {
-                    if (validarCNPJ(value)) {
+                const cnpj = value.replace(/[^\d]+/g, '');
+
+                if (cnpj.length < 14) setErrorCNPJ(false)
+                else if (cnpj.length === 14) {
+                    if (validarCNPJ(cnpj)) {
                         setErrorCNPJ(false)
                         setcorporateTaxpayerRegistry(value)
                     }
@@ -103,6 +60,9 @@ export default function Work(props) {
                         setcorporateTaxpayerRegistry(`${value.substring(0, value.length - 1)}`)
                         setErrorCNPJ(true)
                     }
+                }
+                else if (cnpj.length > 14) {
+                    setErrorCNPJ(true)
                 }
                 break;
             default:
@@ -130,8 +90,10 @@ export default function Work(props) {
             </div>
             <div>
                 <div className="d-flex">
-                    <input required={required} value={corporateTaxpayerRegistry} type="text" name="corporateTaxpayerRegistry" id="corporateTaxpayerRegistry" placeholder={Labels.corporateTaxpayerRegistry}
-                        pattern="([\d]{14})" title={Labels.cnpjTitle} onChange={e => OnChangeField(e)} maxLength="14" />
+                    <InputMask required={required} value={corporateTaxpayerRegistry} type="text" name="corporateTaxpayerRegistry" id="corporateTaxpayerRegistry" 
+                    placeholder={Labels.corporateTaxpayerRegistry} pattern="^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$" mask="99.999.999/9999-99" title={Labels.cnpjTitle} 
+                    onChange={e => OnChangeField(e)} />
+
                     <p className="required">*</p>
                 </div>
                 <p className={errorCNPJ ? 'errorCNPJ' : 'd-none'}>{Labels.cnpjTitle}</p>

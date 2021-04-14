@@ -5,16 +5,12 @@ import config from "../../config";
 import { AttorneyContext } from "../../contexts/AttorneyContexts";
 import { FormContext } from "../../contexts/FormContexts";
 
-import './index.css'
-
 export default function AdressType(props) {
     const [adressType, setAdressType] = useState([])
-    const { languagePT, errorOnApi } = useContext(FormContext)
+    const { languagePT } = useContext(FormContext)
     const Atctx = useContext(AttorneyContext)
-    const [error, setError] = useState(false)
     const Labels = {
         Select: languagePT ? 'Selecionar Tipo de Endereço' : 'Select Address Type',
-        SelectError: languagePT ? 'Erro ao consultar Tipos de Endereço' : 'Error querying Address Type'
     }
 
     let required
@@ -30,21 +26,8 @@ export default function AdressType(props) {
 
     function getAdressType() {
         axios.get(config._urlAdressType)
-            .then(res => {
-                if (res.data) {
-                    setAdressType(res.data)
-                    setError(false)
-                }
-                else {
-                    console.log(Labels.SelectError)
-                    setError(true)
-                }
-            })
-            .catch(err => {
-                console.log(Labels.SelectError)
-                setError(true)
-
-            })
+            .then(res => {if (res.data) setAdressType(res.data)})
+            .catch(err => {console.log(err)})
     }
     function RenderAdressType() {
         return (
@@ -56,11 +39,9 @@ export default function AdressType(props) {
         )
     }
     return (
-        <div className="divAddressTypeSelect">
             <select required={required} name="addressType" id="addressType" onChange={props.onSelectTypeAddress}>
                 <option defaultValue value="">{Labels.Select}</option>
                 {RenderAdressType()}
             </select>
-        </div>
     )
 }

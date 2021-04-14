@@ -49,11 +49,11 @@ const InitialState = {
 export const ClientInfoContext = createContext(InitialState);
 
 export const ClientInfoProvider = (props) => {
-    const {_Json_ClientInfo, errorOnApi} = useContext(FormContext)
+    const {_Json_ClientInfo} = useContext(FormContext)
 
     //#region States
 
-    const [clientId, setclientId] = useState('')
+    const [clientId, setclientId] = useState(0)
     const [name, setname] = useState('')
     const [shortName, setshortName] = useState('')
     const [taxPayerRegistry, settaxPayerRegistry] = useState('')
@@ -96,7 +96,7 @@ export const ClientInfoProvider = (props) => {
     //#endregion
 
     const reqJSON = {
-        clientId: 0,
+        clientId: clientId,
         name: name,
         shortName: shortName,
         taxPayerRegistry: taxPayerRegistry,

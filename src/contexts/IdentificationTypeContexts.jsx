@@ -24,7 +24,7 @@ export const IdentificationTypeContext = createContext(InitialState);
 
 export const IdentificationTypeProvider = (props) => {
 
-    const { _Json_ClientIdentification, errorOnApi } = useContext(FormContext)
+    const { _Json_ClientIdentification } = useContext(FormContext)
     const { taxPayerRegistry } = useContext(ClientInfoContext)
 
     const [identificationTypeId, setidentificationTypeId] = useState('')

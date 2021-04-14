@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, errorOnApi } from "react"
+import { createContext, useEffect, useState } from "react"
 import axios from 'axios'
 import config from "../config";
 
@@ -70,10 +70,6 @@ export const FormContext = createContext(InitialState);
 
 export const FormProvider = (props) => {
   const [languagePT, setLanguagePT] = useState(true)
-  const [errorOnApi, setErrorOnApi] = useState(true)
-  const [error, setError] = useState(false)
-
-  const [codeClient, setCodeClient] = useState('')
 
   useEffect(() => {
     const url = window.location.pathname.split("/")
@@ -148,7 +144,6 @@ export const FormProvider = (props) => {
         .then(res => {
           if (res.data) {
             // console.log(res.data)
-            setCodeClient(res.data.code)
             CheckClient(res.data.code)
           }
         })
@@ -203,9 +198,9 @@ export const FormProvider = (props) => {
               );
             }
           }
-          else if (error.request) {
+          else if (err.request) {
             // The request was made but no response was received
-            console.log(error.request);
+            console.log(err.request);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
             Error(
               "ErrorOnCreateClient",
@@ -215,7 +210,7 @@ export const FormProvider = (props) => {
             );
           } else {
             // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
+            console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
             Error(
               "ErrorOnCreateClient",
@@ -246,8 +241,7 @@ export const FormProvider = (props) => {
         _Json_BankAccounts,
         _Json_FormSuity,
         _Json_PPERelateds,
-        saveClient,
-        errorOnApi
+        saveClient
       }}
     >
       {props.children}

@@ -11,6 +11,9 @@ import { AttorneyContext } from '../../contexts/AttorneyContexts'
 import { FormContext } from '../../contexts/FormContexts'
 
 import Switch from "react-switch";
+import InputMask from "react-input-mask";
+
+import {ValidCPF} from '../../utils'
 
 
 export default function Attorney() {
@@ -33,42 +36,10 @@ export default function Attorney() {
 
     const { setCountryId, setStateId, setStateName, setCityId, setCityName, setTypeAddressId, setZipCode,
         isAcceptedOrderAttorney, setisAcceptedOrderAttorney, name, taxpayerRegistry,
-        birthDate, isPEP, setisPEP, actionDescription,setactionDescription, setname, settaxpayerRegistry, setbirthDate } = useContext(AttorneyContext)
+        isPEP, setisPEP, actionDescription, setactionDescription, setname, settaxpayerRegistry, setbirthDate } = useContext(AttorneyContext)
 
-    function ValidCPF(cpf) {
-        var Soma;
-        var Resto;
-        Soma = 0;
-        if (cpf === "00000000000") return false;
-        if (cpf === "11111111111") return false;
-        if (cpf === "22222222222") return false;
-        if (cpf === "33333333333") return false;
-        if (cpf === "44444444444") return false;
-        if (cpf === "55555555555") return false;
-        if (cpf === "66666666666") return false;
-        if (cpf === "77777777777") return false;
-        if (cpf === "88888888888") return false;
-
-        if (cpf.includes('.')) cpf = cpf.replace(/\./g, '')
-        if (cpf.includes('-')) cpf = cpf.replace(/-/g, '')
-        // if (cpf.includes('-')) cpf = cpf.replace(/\-/g, '')
-
-        for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        Soma = 0;
-        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(10, 11))) return false;
-        return true;
-    }
     function OnChangeFields(e) {
-        const { id, value, selectedIndex, options } = e.target
+        const { id, value } = e.target
         switch (id) {
             case 'name':
                 setname(value)
@@ -79,10 +50,11 @@ export default function Attorney() {
                 setbirthDate(birthDate)
                 break;
             case 'taxpayerRegistry':
+                const cpf = value.replace(/[^\d]+/g, '');
                 settaxpayerRegistry(value)
-                if (value.length < 11) setErrorCpf(false)
-                else if (value.length === 11) {
-                    if (ValidCPF(value)) {
+                if (cpf.length < 11) setErrorCpf(false)
+                else if (cpf.length === 11) {
+                    if (ValidCPF(cpf)) {
                         setErrorCpf(false)
                         settaxpayerRegistry(value)
                     }
@@ -91,7 +63,7 @@ export default function Attorney() {
                         setErrorCpf(true)
                     }
                 }
-                else if (value.length > 11) {
+                else if (cpf.length > 11) {
                     setErrorCpf(true)
                 }
                 break;
@@ -156,15 +128,16 @@ export default function Attorney() {
                 </div>
                 <div>
                     <div className="d-flex">
-                        <input value={taxpayerRegistry} required={isAcceptedOrderAttorney} type="text" name="taxpayerRegistry" id="taxpayerRegistry" placeholder={Labels.taxPayerRegistry}
-                            pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeFields(e)} />
+                        <InputMask value={taxpayerRegistry} required={isAcceptedOrderAttorney} type="text" name="taxpayerRegistry" id="taxpayerRegistry" 
+                        placeholder={Labels.taxPayerRegistry} mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} 
+                        onChange={e => OnChangeFields(e)} />
                         <p className="required">*</p>
                     </div>
                     <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
                 </div>
                 <div className="d-flex">
                     <input required={isAcceptedOrderAttorney} type="date" name="birthDate" id="birthDate" onChange={e => OnChangeFields(e)}
-                        min={Min} max={Max}/>
+                        min={Min} max={Max} />
                     <p className="required">*</p>
                 </div>
                 <div className="d-flex d-flexdc df-alc">
@@ -195,7 +168,7 @@ export default function Attorney() {
 
 
                 <div className="d-flex">
-                    <Countries onSelectCountry={onSelectCountry} ClientAdress={false} Attorney={true}/>
+                    <Countries onSelectCountry={onSelectCountry} ClientAdress={false} Attorney={true} />
                     <p className="required">*</p>
                 </div>
                 <div className="d-flex">
@@ -207,12 +180,12 @@ export default function Attorney() {
                     <p className="required">*</p>
                 </div>
                 <div className="d-flex">
-                    <AdressType onSelectTypeAddress={onSelectTypeAddress} ClientAdress={false} Attorney={true}/>
+                    <AdressType onSelectTypeAddress={onSelectTypeAddress} ClientAdress={false} Attorney={true} />
                     <p className="required">*</p>
                 </div>
                 <AdressUtils ClientAdress={false} Attorney={true}>
                     <div className="d-flex">
-                        <CEP onCollectCep={onCollectCep} ClientAdress={false} Attorney={true}/>
+                        <CEP onCollectCep={onCollectCep} ClientAdress={false} Attorney={true} />
                         <p className="required">*</p>
                     </div>
                 </AdressUtils>

@@ -16,25 +16,23 @@ export default function Cities(props) {
     const { languagePT } = useContext(FormContext)
 
     const [cities, setCities] = useState([])
-    const [error, setError] = useState(false)
     const Labels = {
         Select: languagePT ? 'Selecionar Cidade' : 'Select City',
-        SelectError: languagePT ? 'Erro ao consultar cidades' : 'Error querying cities'
     }
 
     let required
     if (props.Attorney) {
-        if(Atctx.isAcceptedOrderAttorney) required = true
-        else if(!Atctx.isAcceptedOrderAttorney) required = false
+        if (Atctx.isAcceptedOrderAttorney) required = true
+        else if (!Atctx.isAcceptedOrderAttorney) required = false
     }
     else if (props.ClientAdress) required = true
 
     useEffect(() => {
-        if(props.ClientAdress) {
+        if (props.ClientAdress) {
             if (Adctx.stateId.length !== 0) getCities()
             else setCities([])
         }
-        else if (props.Attorney){
+        else if (props.Attorney) {
             if (Atctx.stateId.length !== 0) getCities()
             else setCities([])
         }
@@ -42,22 +40,9 @@ export default function Cities(props) {
 
     function getCities() {
         const _stateId = props.ClientAdress ? Adctx.stateId : Atctx.stateId
-
-            axios.get(`${config._urlCities}${_stateId}`)
-                .then(res => {
-                    if (res.data) {
-                        setCities(res.data)
-                        setError(false)
-                    }
-                    else {
-                        console.log(Labels.SelectError)
-                        setError(true)
-                    }
-                })
-                .catch(err => {
-                    console.log(Labels.SelectError)
-                    setError(true)
-                })
+        axios.get(`${config._urlCities}${_stateId}`)
+            .then(res => { if (res.data) { setCities(res.data) } })
+            .catch(err => { console.log(err) })
     }
     function RenderCities() {
         return (
@@ -70,11 +55,10 @@ export default function Cities(props) {
     }
     return (
         <div className="divCitiesSelect">
-            <select required={required} disabled={error} className={error ? "error" : ""} name="cities" id="cities" onChange={props.onSelectCity}>
+            <select required={required} name="cities" id="cities" onChange={props.onSelectCity}>
                 <option defaultValue value="">{Labels.Select}</option>
                 {RenderCities()}
             </select>
-            <p className={error ? "msgError" : "d-none"}>{Labels.SelectError}</p>
         </div>
     )
 }

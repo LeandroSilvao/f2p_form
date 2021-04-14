@@ -35,8 +35,6 @@ const InitialState = {
     setcomplement: () => { },
     typeAddressId: '',
     setTypeAddressId: () => { },
-    countries: [],
-    countryId: '',
 }
 export const AttorneyContext = createContext(InitialState);
 
@@ -48,7 +46,6 @@ export const AttorneyProvider = (props) => {
     const [isPEP, setisPEP] = useState(false)
     const [actionDescription, setactionDescription] = useState('')
     const [countryId, setCountryId] = useState('')
-    const [countries, setCountries] = useState('')
     const [stateId, setStateId] = useState('')
     const [stateName, setStateName] = useState('')
     const [cityId, setCityId] = useState('')
@@ -97,7 +94,7 @@ export const AttorneyProvider = (props) => {
         <AttorneyContext.Provider
             value={{
                 name, taxpayerRegistry, birthDate, isPEP, actionDescription,
-                countries, countryId, isAcceptedOrderAttorney, stateId,
+                countryId, isAcceptedOrderAttorney, stateId,
                 setisAcceptedOrderAttorney, setname, settaxpayerRegistry,
                 setbirthDate, setisPEP, setactionDescription,
                 setCountryId, setStateId, setStateName, setCityId, setneighborhood,

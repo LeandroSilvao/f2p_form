@@ -17,7 +17,7 @@ const InitialState = {
 export const EmailContext = createContext(InitialState);
 
 export const EmailProvider = (props) => {
-    const { _Json_EmailInfo, errorOnApi } = useContext(FormContext)
+    const { _Json_EmailInfo } = useContext(FormContext)
     const [mail, setMail] = useState('')
     const [type, setType] = useState('')
     const [isCorrespondency, setIsCorrespondency] = useState(true)

@@ -4,7 +4,9 @@ import { ClientInfoContext } from '../../contexts/ClientInfoContexts';
 import { FormContext } from "../../contexts/FormContexts";
 import { WealthsTypeContext } from '../../contexts/Wealths';
 
-import { FaTrash, FaPlusSquare } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import CurrencyInput from 'react-currency-masked-input'
+
 import './index.css'
 
 export default function Wealths(props) {
@@ -37,9 +39,13 @@ export default function Wealths(props) {
                 setdescription(value)
                 break;
             case 'wealthValue':
-                setvalue(value)
+                let valor = value + '';
+                valor = parseInt(valor.replace(/[\D]+/g, ''));
+                valor = valor + '';
+                valor = valor.replace(/([0-9]{2})$/g, ".$1");
+                setvalue(valor)
+                if (valor == 'NaN') setvalue('') 
                 break;
-
             default:
                 break;
         }
@@ -78,7 +84,7 @@ export default function Wealths(props) {
             setError(false)
             let wealth = {
                 typeWealthId: parseInt(typeWealthId),
-                value: parseInt(value),
+                value: parseFloat(value).toFixed(2),
                 description: description
             }
             setClientWealths([...clientWealths, wealth])
@@ -112,14 +118,17 @@ export default function Wealths(props) {
                 <p className="required">*</p>
             </div>
 
+            <p className="inputDescription">{Labels.value}</p>
+            {/* <div className="d-flex"> */}
             <div className="d-flex">
-                <input required={required && clientWealths.length === 0} value={value} type="text" name="wealthValue" id="wealthValue" placeholder={Labels.value}
-                    onChange={e => OnChangeField(e)} pattern="^[0-9\.\,]+$" />
+                <input type="text" value={value} required={required && clientWealths.length === 0} name="wealthValue" id="wealthValue"
+                    placeholder="$0" onChange={e => OnChangeField(e)} />
                 <p className="required">*</p>
             </div>
+            {/* </div> */}
 
             <div className="wealths">
-            {RenderClientWealths()}
+                {RenderClientWealths()}
             </div>
             <div className="addButton">
                 <button type="button" onClick={() => addClientWealth()}>

@@ -11,7 +11,7 @@ export default function Work(props) {
 
     const { languagePT } = useContext(FormContext)
     const { age } = useContext(ClientInfoContext)
-    const { name, taxpayerRegistry, relationshipTypeId, relationshipTypesId,
+    const { name, taxpayerRegistry, relationshipTypesId,
         setname, settaxpayerRegistry, setRelationshipTypeId, setIsRequired } = useContext(LegalRepresentativeContext)
 
     let required = age > 0 && age < 18 ? true : false

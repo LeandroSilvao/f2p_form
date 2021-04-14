@@ -10,11 +10,10 @@ import { AttorneyContext } from "../../contexts/AttorneyContexts";
 
 export default function Countries(props) {
     const [countries, setCountries] = useState([])
-    const { languagePT, errorOnApi } = useContext(FormContext)
+    const { languagePT } = useContext(FormContext)
     const Atctx = useContext(AttorneyContext)
 
 
-    const [error, setError] = useState(false)
     const Labels = {
         Select: languagePT ? 'Selecionar País' : 'Select Country',
         SelectError: languagePT ? 'Erro ao consultar países' : 'Error querying countries'
@@ -28,14 +27,12 @@ export default function Countries(props) {
     else if (props.ClientAdress) required = true
 
     useEffect(() => {
-            getCountries()
+        getCountries()
     }, [])
 
     function getCountries() {
         axios.get(config._urlCountries)
-            .then(res => {
-                if (res.data) setCountries(res.data)
-            })
+            .then(res => { if (res.data) setCountries(res.data) })
             .catch(err => console.log(Labels.SelectError))
     }
     function RenderCountries() {
