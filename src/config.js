@@ -1,6 +1,5 @@
-const proxy = "https://8147975a629e.ngrok.io"
+const proxy = "https://d3218c0301c6.ngrok.io/"
 // const proxy = "http://localhost:2525/"
-// const proxy = "https://cors-anywhere.herokuapp.com/"
 
 const config = {
     _urlCountries: proxy + "http://bp-api-hml.brasilplural.com/onboarding/api/Country",
