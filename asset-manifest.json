@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/flow2pay/static/css/main.fcc4a569.chunk.css",
+    "main.js": "/flow2pay/static/js/main.ed522731.chunk.js",
+    "main.js.map": "/flow2pay/static/js/main.ed522731.chunk.js.map",
+    "runtime-main.js": "/flow2pay/static/js/runtime-main.4b408e31.js",
+    "runtime-main.js.map": "/flow2pay/static/js/runtime-main.4b408e31.js.map",
+    "static/css/2.ffda3d49.chunk.css": "/flow2pay/static/css/2.ffda3d49.chunk.css",
+    "static/js/2.b615ddcf.chunk.js": "/flow2pay/static/js/2.b615ddcf.chunk.js",
+    "static/js/2.b615ddcf.chunk.js.map": "/flow2pay/static/js/2.b615ddcf.chunk.js.map",
+    "index.html": "/flow2pay/index.html",
+    "static/css/2.ffda3d49.chunk.css.map": "/flow2pay/static/css/2.ffda3d49.chunk.css.map",
+    "static/css/main.fcc4a569.chunk.css.map": "/flow2pay/static/css/main.fcc4a569.chunk.css.map",
+    "static/js/2.b615ddcf.chunk.js.LICENSE.txt": "/flow2pay/static/js/2.b615ddcf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4b408e31.js",
+    "static/css/2.ffda3d49.chunk.css",
+    "static/js/2.b615ddcf.chunk.js",
+    "static/css/main.fcc4a569.chunk.css",
+    "static/js/main.ed522731.chunk.js"
+  ]
+}
