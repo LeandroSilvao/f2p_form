@@ -5,13 +5,15 @@
   --gray-line: #DCDDE0;
   --text: #666666;
   --text-highlight: #B3D9FF;
-  --title: #2E384D;
+  --title: #000A1E;
   --red: #E83F5B;
   --green: #4CD62B;
   --greenDark: #3b9e22;
   --blue: #5965e0;
   --blue-dark: #4953B8;
   --blue-twitter: #2AA9E0;
+  --blu-f2p: #000A1E;
+  --orange-f2p: #F49925;
 }
 
 * {
@@ -25,10 +27,34 @@ body {
   color: var(--text);
 }
 
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  background-color: var(--blu-f2p);
+  border-left: solid 0.5rem var(--orange-f2p);
+  height: 3.5rem;
+  width: 100%;
+}
+
+header>span {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+header>a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+
 #root {
   display: flex;
-  height: 100vh;
-  justify-content: center;
+  flex-direction: column;
 }
 
 form {
@@ -36,12 +62,7 @@ form {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 20px;
-}
-
-form>button {
-  /* margin: 10px 0 20px 0; */
+  margin: 30px;
 }
 
 .div-infos {
@@ -91,6 +112,24 @@ form>button {
   padding: 50px;
 }
 
+.div-footer>button {
+  color: #fff;
+  border: none;
+  background-color: var(--blu-f2p);
+  border-left: solid 0.3rem var(--orange-f2p);
+  font-size: 1rem;
+  width: 7rem;
+  padding: 1rem;
+  cursor: pointer;
+  -webkit-transition: width 0.2s;
+  transition: width 0.2s;
+}
+
+.div-footer>button:hover {
+  width: 7.5rem;
+  background-color: #000a1ed0;
+}
+
 input {
   padding-left: 3.5px;
 }
@@ -104,11 +143,6 @@ select {
   color: gray;
   font-size: 14px;
   border: solid 1px var(--text);
-}
-
-option div {
-  width: 100%;
-  word-wrap: break-word;
 }
 
 p {
@@ -232,6 +266,17 @@ span {
   .div-attorney {
     margin-top: 0;
   }
+  header {
+    height: 2.5rem;
+  }
+  
+  header>span {
+    font-size: 1rem;
+  }
+  
+  header>a {
+    font-size: 0.7rem;
+  }
 }
 
 @media(max-width: 320px) {
@@ -247,6 +292,17 @@ span {
 }
 
 @media(max-width: 280px) {
+  header {
+    height: 2.5rem;
+  }
+  
+  header>span {
+    font-size: 1rem;
+  }
+  
+  header>a {
+    font-size: 0.5rem;
+  }
   .div-attorney {
     margin-top: 0;
   }
@@ -256,11 +312,10 @@ span {
   /* border: solid 1px red; */
   width: 100%;
 }
-.select-search__input {
-}
 
-.select-search__select {
-}
+.select-search__input {}
+
+.select-search__select {}
 
 .select-search__options {
   display: flex;
@@ -271,18 +326,22 @@ span {
   list-style: none;
   border: solid 1px var(--text);
 }
+
 .select-search__row {
   min-height: 2.5rem;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .select-search__row:hover {
-  background-color: rgb(30,114,255);
+  background-color: rgb(30, 114, 255);
 }
+
 .select-search__row:hover button {
   color: #fff;
 }
+
 .select-search__row button {
   font-family: 'Inter', sans-serif;
   color: var(--text);

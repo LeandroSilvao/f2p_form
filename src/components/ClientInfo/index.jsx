@@ -39,8 +39,8 @@ export default function ClientInfo() {
     const Labels = {
         componentTitle: languagePT ? 'Informações do cliente' : 'Customer information',
         onlyLettersTitle: languagePT ? 'Somente letras' : 'Only letters',
-        dateInvalid: languagePT ? 'Selecione uma data valida' : 'Only letters',
-        cpfTitle: languagePT ? 'Digite um cpf valido' : 'Only letters',
+        dateInvalid: languagePT ? 'Selecione uma data valida' : 'Select a valid date',
+        cpfTitle: languagePT ? 'Digite um cpf valido' : 'Please enter a valid cpf',
         name: languagePT ? 'Nome' : 'Name',
         shortName: languagePT ? 'Apelido' : 'ShortName',
         birthDate: languagePT ? 'Data de Nascimento' : 'BirthDate',
@@ -388,10 +388,10 @@ export default function ClientInfo() {
                 <div className="d-flex d-flexdc df-alc">
                     <p className="inputDescription">{Labels.usPerson} ?</p>
                     <Switch
-                        onColor="#4B4B4B"
-                        offColor="#bdbbbb"
-                        onHandleColor="#bdbbbb"
-                        offHandleColor="#4B4B4B"
+                        onColor="#fac580"
+                        onHandleColor="#F49925"
+                        offColor="#474e5e"
+                        offHandleColor="#000A1E"
                         checked={usPerson}
                         onChange={cheked => setusPerson(cheked)}
                         handleDiameter={30}
@@ -407,10 +407,10 @@ export default function ClientInfo() {
                 <div className="d-flex d-flexdc df-alc">
                     <p className="inputDescription">{Labels.isAssociatedPerson} ?</p>
                     <Switch
-                        onColor="#4B4B4B"
-                        offColor="#bdbbbb"
-                        onHandleColor="#bdbbbb"
-                        offHandleColor="#4B4B4B"
+                        onColor="#fac580"
+                        onHandleColor="#F49925"
+                        offColor="#474e5e"
+                        offHandleColor="#000A1E"
                         checked={isAssociatedPerson}
                         onChange={cheked => setisAssociatedPerson(cheked)}
                         handleDiameter={30}
@@ -426,10 +426,10 @@ export default function ClientInfo() {
                 <div className="d-flex d-flexdc df-alc">
                     <p className="inputDescription">{Labels.isAdministratorInAnotherAccount} ?</p>
                     <Switch
-                        onColor="#4B4B4B"
-                        offColor="#bdbbbb"
-                        onHandleColor="#bdbbbb"
-                        offHandleColor="#4B4B4B"
+                        onColor="#fac580"
+                        onHandleColor="#F49925"
+                        offColor="#474e5e"
+                        offHandleColor="#000A1E"
                         checked={isAdministratorInAnotherAccount}
                         onChange={cheked => setisAdministratorInAnotherAccount(cheked)}
                         handleDiameter={30}

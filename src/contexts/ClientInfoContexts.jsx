@@ -49,7 +49,7 @@ const InitialState = {
 export const ClientInfoContext = createContext(InitialState);
 
 export const ClientInfoProvider = (props) => {
-    const {_Json_ClientInfo} = useContext(FormContext)
+    const {_Json_ClientInfo, _Json_Spouse} = useContext(FormContext)
 
     //#region States
 
@@ -99,7 +99,7 @@ export const ClientInfoProvider = (props) => {
         clientId: clientId,
         name: name,
         shortName: shortName,
-        taxPayerRegistry: taxPayerRegistry,
+        taxPayerRegistry: taxPayerRegistry.replace(/[^\d]+/g, ''),
         birthDate: `${birthDate}T00:00:00`,
         fatherName: fatherName,
         genderId: parseInt(genderId),
@@ -119,11 +119,15 @@ export const ClientInfoProvider = (props) => {
         isAssociatedPerson: isAssociatedPerson,
         isAdministratorInAnotherAccount: isAdministratorInAnotherAccount,
     }
+    useEffect(() => {
+        console.log(maritalStatusId)
+        if(maritalStatusId !== "2") _Json_Spouse({})
+    }, [maritalStatusId])
 
     // Campos não obrigatórios
     useEffect(() => {
         _Json_ClientInfo(reqJSON)
-    }, [usPerson, isAssociatedPerson,ppeOccupation, maritalAgreementId, otherTaxResidenceCountryId,residenceInOtherCountryId])
+    }, [usPerson, isAssociatedPerson,ppeOccupation, maritalAgreementId, otherTaxResidenceCountryId,residenceInOtherCountryId,isAdministratorInAnotherAccount])
 
     // Campos obrigatórios
     useEffect(() => {

@@ -102,10 +102,10 @@ export default function Attorney() {
             <div className="d-flex d-flexdc df-alc">
                 <p className="inputDescription">{Labels.isAcceptedOrderAttorney} ?</p>
                 <Switch
-                    onColor="#4B4B4B"
-                    offColor="#bdbbbb"
-                    onHandleColor="#bdbbbb"
-                    offHandleColor="#4B4B4B"
+                    onColor="#fac580"
+                    onHandleColor="#F49925"
+                    offColor="#474e5e"
+                    offHandleColor="#000A1E"
                     checked={isAcceptedOrderAttorney}
                     onChange={cheked => setisAcceptedOrderAttorney(cheked)}
                     handleDiameter={30}
@@ -143,10 +143,10 @@ export default function Attorney() {
                 <div className="d-flex d-flexdc df-alc">
                     <p className="inputDescription">{Labels.isPEP} ?</p>
                     <Switch
-                        onColor="#4B4B4B"
-                        offColor="#bdbbbb"
-                        onHandleColor="#bdbbbb"
-                        offHandleColor="#4B4B4B"
+                        onColor="#fac580"
+                        onHandleColor="#F49925"
+                        offColor="#474e5e"
+                        offHandleColor="#000A1E"
                         checked={isPEP}
                         onChange={cheked => setisPEP(cheked)}
                         handleDiameter={30}

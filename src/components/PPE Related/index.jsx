@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { PPERelatedsContext } from '../../contexts/PPERelatedsContext';
 import { FormContext } from "../../contexts/FormContexts";
+
+import InputMask from "react-input-mask";
 import Switch from "react-switch";
+
+import {ValidCPF} from '../../utils'
 
 
 import './index.css'
 
 export default function PPERelateds(props) {
-    const { languagePT } = useContext(FormContext)
+    const { languagePT, _Json_PPERelateds } = useContext(FormContext)
     const { name, nationality, occupation, setname, setnationality,
         setoccupation, settaxPayerRegistry, taxPayerRegistry } = useContext(PPERelatedsContext)
     const [errorCpf, setErrorCpf] = useState(false)
@@ -27,51 +31,22 @@ export default function PPERelateds(props) {
 
     }
 
-    function ValidCPF(cpf) {
-        var Soma;
-        var Resto;
-        Soma = 0;
-        if (cpf === "00000000000") return false;
-        if (cpf === "11111111111") return false;
-        if (cpf === "22222222222") return false;
-        if (cpf === "33333333333") return false;
-        if (cpf === "44444444444") return false;
-        if (cpf === "55555555555") return false;
-        if (cpf === "66666666666") return false;
-        if (cpf === "77777777777") return false;
-        if (cpf === "88888888888") return false;
-
-        if (cpf.includes('.')) cpf = cpf.replace(/\./g, '')
-        if (cpf.includes('-')) cpf = cpf.replace(/-/g, '')
-        // if (cpf.includes('-')) cpf = cpf.replace(/\-/g, '')
-
-        for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        Soma = 0;
-        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(10, 11))) return false;
-        return true;
-    }
+    useEffect(() => {
+        if (!PPERelated) _Json_PPERelateds({})
+    }, [PPERelated])
 
     function OnChangeField(e) {
         const { id, value } = e.target
-
         switch (id) {
             case 'name':
                 setname(value)
                 break;
             case 'taxPayerRegistry':
+                const cpf = value.replace(/[^\d]+/g, '');
                 settaxPayerRegistry(value)
-                if (value.length < 11) setErrorCpf(false)
-                else if (value.length === 11) {
-                    if (ValidCPF(value)) {
+                if (cpf.length < 11) setErrorCpf(false)
+                else if (cpf.length === 11) {
+                    if (ValidCPF(cpf)) {
                         setErrorCpf(false)
                         settaxPayerRegistry(value)
                     }
@@ -80,7 +55,7 @@ export default function PPERelateds(props) {
                         setErrorCpf(true)
                     }
                 }
-                else if (value.length > 11) {
+                else if (cpf.length > 11) {
                     setErrorCpf(true)
                 }
                 break;
@@ -95,7 +70,7 @@ export default function PPERelateds(props) {
         }
     }
 
-    
+
 
     return (
         <div>
@@ -103,10 +78,10 @@ export default function PPERelateds(props) {
             <div className="d-flex d-flexdc df-alc">
                 <p className="inputDescription">{Labels.PPERelated} ?</p>
                 <Switch
-                    onColor="#4B4B4B"
-                    offColor="#bdbbbb"
-                    onHandleColor="#bdbbbb"
-                    offHandleColor="#4B4B4B"
+                    onColor="#fac580"
+                    onHandleColor="#F49925"
+                    offColor="#474e5e"
+                    offHandleColor="#000A1E"
                     checked={PPERelated}
                     onChange={cheked => setPPERelated(cheked)}
                     handleDiameter={30}
@@ -126,17 +101,19 @@ export default function PPERelateds(props) {
             </div>
 
             <div className={PPERelated ? "d-flex" : "d-none"}>
-                <input className={PPERelated ? "" : "d-none"} value={nationality} required={PPERelated} type="text" 
-                name="nationality" id="nationality" placeholder={Labels.nationality}
+                <input className={PPERelated ? "" : "d-none"} value={nationality} required={PPERelated} type="text"
+                    name="nationality" id="nationality" placeholder={Labels.nationality}
                     pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
                 <p className="required">*</p>
             </div>
 
             <div className={PPERelated ? "" : "d-none"}>
                 <div className="d-flex">
-                    <input className={PPERelated ? "" : "d-none"} value={taxPayerRegistry} required={PPERelated} 
-                    type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
-                        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
+                    <InputMask className={PPERelated ? "" : "d-none"} value={taxPayerRegistry} required={PPERelated}
+                        type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
+                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" 
+                        title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
+
                     <p className="required">*</p>
                 </div>
                 <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>

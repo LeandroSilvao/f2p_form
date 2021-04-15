@@ -57,7 +57,7 @@ export default function BankAccounts(props) {
                 return (
                     <div className="account" key={index}>
                         <div className="d-flex d-flexdc">
-                            <span className="inputDescription">{banks.find(b => b.bankId === bat.bankId).name}</span>
+                            <span className="inputDescription">{banks.find(b => b.value === bat.bankId.toString()).name}</span>
                             <span className="inputDescription">Agencia: {bat.agency}</span>
                             <span className="inputDescription">Conta: {bat.account}</span>
                         </div>
@@ -150,13 +150,7 @@ export default function BankAccounts(props) {
 
                 <SelectSearch options={banks} search={true} filterOptions={fuzzySearch} name="name"
                     emptyMessage="Not found" placeholder={Labels.SelectbankId} id="bankId"
-                    printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)}
-                    />
-
-                {/* <select required={clientBankAccounts.length === 0} name="bankId" id="bankId" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.SelectbankId}</option>
-                    {RenderBanks()}
-                </select> */}
+                    printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)}/>
                 <p className="required">*</p>
             </div>
 

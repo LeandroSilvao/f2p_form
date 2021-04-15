@@ -61,7 +61,7 @@ export const AttorneyProvider = (props) => {
 
     const attorneys = {
         name: name,
-        taxpayerRegistry: taxpayerRegistry,
+        taxpayerRegistry: taxpayerRegistry.replace(/[^\d]+/g, ''),
         birthDate: birthDate,
         isPEP: isPEP,
         actionDescription: actionDescription,
@@ -82,10 +82,10 @@ export const AttorneyProvider = (props) => {
 
 
     useEffect(() => {
-        if(!isAcceptedOrderAttorney) _Json_AttorneyInfo({})
+        if(!isAcceptedOrderAttorney) _Json_AttorneyInfo([])
         else if (isAcceptedOrderAttorney && name && taxpayerRegistry && birthDate && actionDescription && countryId && stateId && stateName && cityId && cityName &&
             neighborhood && description && zipCode && number && complement && typeAddressId) {
-            _Json_AttorneyInfo(attorneys)
+            _Json_AttorneyInfo([attorneys])
         }
     }, [isAcceptedOrderAttorney, name, taxpayerRegistry, birthDate, isPEP, actionDescription, countryId, stateId, stateName, cityId, cityName,
         neighborhood, description, zipCode, number, complement, typeAddressId])

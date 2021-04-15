@@ -26,7 +26,7 @@ export default function Wealths(props) {
         addButtonDescription: languagePT ? 'CLIQUE PARA ADICIONAR O BEM/FINANÇA' : 'CLICK TO ADD A WEALTH/FINANCE'
     }
 
-    const required = professionalOccupationId === "8" || professionalOccupationId === "9" ||
+    let required = professionalOccupationId === "8" || professionalOccupationId === "9" ||
         professionalOccupationId === "" ? false : true
 
     function OnChangeField(e) {
@@ -96,6 +96,11 @@ export default function Wealths(props) {
         setClientWealths(clientWealths.filter((c, index) => index !== i))
     }
 
+    useEffect(() => {
+        required = professionalOccupationId === "8" || professionalOccupationId === "9" ||
+        professionalOccupationId === "" ? false : true
+        if(!required) _Json_Wealths([])
+    }, [professionalOccupationId])
     useEffect(() => {
         _Json_Wealths(clientWealths)
     }, [clientWealths])

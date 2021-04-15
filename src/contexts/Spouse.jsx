@@ -45,7 +45,7 @@ export const SpouseProvider = (props) => {
     let reqJSON = {
         spouseId: spouseId,
         name: name,
-        taxPayerRegistry: taxPayerRegistry,
+        taxPayerRegistry: taxPayerRegistry.replace(/[^\d]+/g, ''),
         document: {
             identificationTypeId: identificationTypeId,
             number: number,
@@ -56,8 +56,7 @@ export const SpouseProvider = (props) => {
     }
 
     useEffect(() => {
-        if(hide) _Json_Spouse({})
-        else if (identificationTypeId === "40") {
+        if (identificationTypeId === "40") {
             if (name && taxPayerRegistry && identificationTypeId && emissionInssuer && emission && stateId) {
                 const cpf = `${taxPayerRegistry.substring(0, 3)}.${taxPayerRegistry.substring(3, 6)}.${taxPayerRegistry.substring(6, 9)}-${taxPayerRegistry.substring(9, 11)}`
                 reqJSON.document.number = identificationTypeId === "40" ? cpf : number

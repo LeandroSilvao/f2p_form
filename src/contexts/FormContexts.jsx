@@ -87,7 +87,7 @@ export const FormProvider = (props) => {
     reqJSON = { ...reqJSON, ...obj }
   }
   function _Json_AttorneyInfo(obj) {
-    reqJSON.attorneys = [obj]
+    reqJSON.attorneys = obj
   }
   function _Json_PhoneInfo(obj) {
     reqJSON.phones = [obj]
@@ -120,6 +120,9 @@ export const FormProvider = (props) => {
     reqJSON.legalRepresentatives = [obj]
   }
   function saveClient() {
+    console.log(reqJSON.professionalOccupationId)
+    const required = reqJSON.professionalOccupationId === 8 || reqJSON.professionalOccupationId === 9  ? false : true
+
     if (reqJSON.bankAccounts.length === 0) {
       const ErrorMessage = languagePT ? 'Adicione uma conta bancaria' : 'Add a bank account'
       Warn(
@@ -129,7 +132,7 @@ export const FormProvider = (props) => {
         false
       );
     }
-    else if (reqJSON.wealths.length === 0) {
+    else if (required && reqJSON.wealths.length === 0) {
       const ErrorMessage = languagePT ? 'Adicione um bem/finança' : 'Add a wealth / finance'
       Warn(
         "Addwealth/finance",
@@ -140,36 +143,36 @@ export const FormProvider = (props) => {
     }
     else {
       console.log(JSON.stringify(reqJSON))
-      axios.post(config._urlSaveClient, reqJSON)
-        .then(res => {
-          if (res.data) {
-            // console.log(res.data)
-            CheckClient(res.data.code)
-          }
-        })
-        .catch(err => {
-          if (err.request || err.response) {
-            // The request was made but no response was received
-            console.log('Error', err.message);
-            const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              5000,
-              false
-            );
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', err.message);
-            const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              5000,
-              false
-            );
-          }
-        })
+      // axios.post(config._urlSaveClient, reqJSON)
+      //   .then(res => {
+      //     if (res.data) {
+      //       // console.log(res.data)
+      //       CheckClient(res.data.code)
+      //     }
+      //   })
+      //   .catch(err => {
+      //     if (err.request || err.response) {
+      //       // The request was made but no response was received
+      //       console.log('Error', err.message);
+      //       const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+      //       Error(
+      //         "ErrorOnCreateClient",
+      //         ErrorMessage,
+      //         5000,
+      //         false
+      //       );
+      //     } else {
+      //       // Something happened in setting up the request that triggered an Error
+      //       console.log('Error', err.message);
+      //       const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+      //       Error(
+      //         "ErrorOnCreateClient",
+      //         ErrorMessage,
+      //         5000,
+      //         false
+      //       );
+      //     }
+      //   })
     }
   }
 

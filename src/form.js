@@ -28,76 +28,89 @@ import './Global.css';
 import { FormSuityProvider } from './contexts/FormSuity';
 import { PPERelatedsProvider } from './contexts/PPERelatedsContext';
 
+import { FaAngleLeft } from "react-icons/fa";
+
 function App() {
-    const { saveClient } = useContext(FormContext)
+    const { saveClient,languagePT } = useContext(FormContext)
+
+    const Labels = {
+        HeaderTitle: languagePT ? "Cadastro de Cliente" : "Customer registration",
+        BackToSite: languagePT ? "Voltar ao Site" : "Back to site",
+        ButtonSave: languagePT ? "Salvar" : "Save"
+    }
 
     function onSubmit(e) {
         e.preventDefault()
         saveClient()
     }
     return (
-        <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off">
+        <>
+            <header>
+                <a href="https://flow2pay.com.br/"><FaAngleLeft/>{Labels.BackToSite}</a>
+                <span>{Labels.HeaderTitle}</span>
+            </header>
+            <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off">
+                <div className="div-infos">
 
-            <div className="div-infos">
+                    <div className="div-client">
+                        <ClientInfo />
+                        <div className="div-client-1">
+                            <PhonesProvider>
+                                <Phones />
+                            </PhonesProvider>
 
-                <div className="div-client">
-                    <ClientInfo />
-                    <div className="div-client-1">
-                        <PhonesProvider>
-                            <Phones />
-                        </PhonesProvider>
+                            <IdentificationTypeProvider>
+                                <IdentificationType />
+                            </IdentificationTypeProvider>
 
-                        <IdentificationTypeProvider>
-                            <IdentificationType />
-                        </IdentificationTypeProvider>
+                            <EmailProvider>
+                                <EmailType />
+                            </EmailProvider>
 
-                        <EmailProvider>
-                            <EmailType />
-                        </EmailProvider>
+                            <AdressesProvider>
+                                <ClientAdress />
+                            </AdressesProvider>
 
-                        <AdressesProvider>
-                            <ClientAdress />
-                        </AdressesProvider>
+                            <PPERelatedsProvider>
+                                <PPERelateds />
+                            </PPERelatedsProvider>
 
-                        <PPERelatedsProvider>
-                            <PPERelateds />
-                        </PPERelatedsProvider>
-
-                        <WorkProvider>
-                            <Work />
-                        </WorkProvider>
+                            <WorkProvider>
+                                <Work />
+                            </WorkProvider>
+                        </div>
                     </div>
+
+                    <div className="div-wealthsType">
+                        <BankAccountsProvider>
+                            <BankAccounts />
+                        </BankAccountsProvider>
+
+                        <WealthsTypeProvider>
+                            <Wealths />
+                        </WealthsTypeProvider>
+                    </div>
+
+
+                    <div className="div-attorney">
+                        <AttorneyProvider>
+                            <Attorney />
+                        </AttorneyProvider>
+                    </div>
+
+                    <div className="div-formsuity">
+                        <FormSuityProvider>
+                            <FormSuity />
+                        </FormSuityProvider>
+                    </div>
+
                 </div>
 
-                <div className="div-wealthsType">
-                    <BankAccountsProvider>
-                        <BankAccounts />
-                    </BankAccountsProvider>
-
-                    <WealthsTypeProvider>
-                        <Wealths />
-                    </WealthsTypeProvider>
+                <div className="div-footer">
+                    <button type="submit">{Labels.ButtonSave}</button>
                 </div>
-
-
-                <div className="div-attorney">
-                    <AttorneyProvider>
-                        <Attorney />
-                    </AttorneyProvider>
-                </div>
-
-                <div className="div-formsuity">
-                    <FormSuityProvider>
-                        <FormSuity />
-                    </FormSuityProvider>
-                </div>
-
-            </div>
-
-            <div className="div-footer">
-                <button type="submit">CADASTRAR</button>
-            </div>
-        </form>
+            </form>
+        </>
     );
 }
 

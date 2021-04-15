@@ -16,20 +16,16 @@ export default function Spouse(props) {
     const Labels = {
         name: languagePT ? 'Nome' : 'Name',
         Select: languagePT ? 'Selecionar Tipo de Identificação' : 'Select Identification Type',
-        States: languagePT ? 'UF do documento' : 'Select State',
-        emission: languagePT ? 'Data de emissão' : 'Select State',
+        States: languagePT ? 'UF do documento' : 'Document UF',
+        emission: languagePT ? 'Data de emissão' : 'Issue date',
         emissionInssuer: languagePT ? 'Orgão Emissor' : 'Emission Inssuer',
         documentNumber: languagePT ? 'Número do documento' : 'Document Number',
-        cpfTitle: languagePT ? 'Digite um cpf valido' : 'Only letters',
+        cpfTitle: languagePT ? 'Digite um cpf valido' : 'Please enter a valid cpf',
         taxPayerRegistry: languagePT ? 'CPF' : 'Tax Payer Registry',
         onlyLettersTitle: languagePT ? 'Somente letras' : 'Only letters',
     }
     const Max = new Date().toISOString().split('T')[0]
     const Min = new Date(Max.split('-')[0] - 200, '00', '01').toISOString().split('T')[0]
-
-    useEffect(() => {
-        setHide(props.hide)
-    }, [])
 
     function OnChangeField(e) {
         const { value, id } = e.target
@@ -55,10 +51,11 @@ export default function Spouse(props) {
                 setemission(emissionDoc)
                 break;
             case 'spousedocumentcpf':
+                const cpf = value.replace(/[^\d]+/g, '');
                 settaxPayerRegistry(value)
-                if (value.length < 11) setErrorCpf(false)
-                else if (value.length === 11) {
-                    if (ValidCPF(value)) {
+                if (cpf.length < 11) setErrorCpf(false)
+                else if (cpf.length === 11) {
+                    if (ValidCPF(cpf)) {
                         setErrorCpf(false)
                         settaxPayerRegistry(value)
                     }
@@ -67,6 +64,10 @@ export default function Spouse(props) {
                         setErrorCpf(true)
                     }
                 }
+                else if (cpf.length > 11) {
+                    setErrorCpf(true)
+                }
+                break;
                 break;
             default:
                 break;
