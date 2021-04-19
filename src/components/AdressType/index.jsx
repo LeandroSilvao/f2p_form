@@ -27,7 +27,7 @@ export default function AdressType(props) {
     function getAdressType() {
         axios.get(config._urlAdressType)
             .then(res => {if (res.data) setAdressType(res.data)})
-            .catch(err => {console.log(err)})
+            .catch(err => console.log(err))
     }
     function RenderAdressType() {
         return (

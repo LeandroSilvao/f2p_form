@@ -1,4 +1,4 @@
-const proxy = "https://d3218c0301c6.ngrok.io/"
+const proxy = "https://0292a9eb466f.ngrok.io/"
 // const proxy = "http://localhost:2525/"
 
 const config = {

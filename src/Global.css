@@ -113,6 +113,9 @@ form {
 }
 
 .div-footer>button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   color: #fff;
   border: none;
   background-color: var(--blu-f2p);
@@ -177,10 +180,6 @@ span {
   align-items: center;
 }
 
-.mr-3 {
-  margin-right: 1rem;
-}
-
 .required {
   font-size: 0.75rem;
   margin-left: 5px;
@@ -219,7 +218,6 @@ span {
     margin-top: 40px;
   }
 }
-
 @media(max-width: 1024px) {
   .div-attorney {
     margin-top: 40px;
@@ -229,7 +227,6 @@ span {
     margin-top: 40px;
   }
 }
-
 @media(max-width: 768px) {
   .div-infos {
     display: flex;
@@ -239,7 +236,6 @@ span {
     margin-top: 40px;
   }
 }
-
 @media(max-width: 540px) {
   .div-infos {
     display: flex;
@@ -278,7 +274,6 @@ span {
     font-size: 0.7rem;
   }
 }
-
 @media(max-width: 320px) {
   .div-infos {
     display: flex;
@@ -290,7 +285,6 @@ span {
     margin-top: 0;
   }
 }
-
 @media(max-width: 280px) {
   header {
     height: 2.5rem;
@@ -351,4 +345,10 @@ span {
   height: 100%;
   text-align: left;
   padding-left: 2px;
+}
+
+.toastify-icon {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
 }

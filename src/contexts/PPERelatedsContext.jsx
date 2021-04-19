@@ -24,14 +24,14 @@ export const PPERelatedsProvider = (props) => {
     const [occupation, setoccupation] = useState('')
 
     const reqJson = {
-        taxPayerRegistry: taxPayerRegistry,
+        taxPayerRegistry: taxPayerRegistry.replace(/[^\d]+/g, ''),
         name: name,
         nationality: nationality,
         occupation: occupation
     }
 
     useEffect(() => {
-        if(name && taxPayerRegistry && occupation && nationality) _Json_PPERelateds(reqJson)
+        if(name && taxPayerRegistry && occupation && nationality) _Json_PPERelateds([reqJson])
     }, [name,taxPayerRegistry,occupation,nationality])
 
     return (

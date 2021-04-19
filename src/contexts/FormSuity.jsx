@@ -22,7 +22,7 @@ export const FormSuityProvider = (props) => {
     function GetQuestions() {
         axios.get(config._urlQuestions)
             .then(res => { if (res.data) setQuestions(res.data) })
-            .catch(err => console.log(`${err}`))
+            .catch(err => console.log(err))
     }
 
     function GetAnswers() {

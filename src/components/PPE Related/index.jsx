@@ -32,7 +32,7 @@ export default function PPERelateds(props) {
     }
 
     useEffect(() => {
-        if (!PPERelated) _Json_PPERelateds({})
+        if (!PPERelated) _Json_PPERelateds([])
     }, [PPERelated])
 
     function OnChangeField(e) {

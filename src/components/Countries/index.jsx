@@ -15,8 +15,7 @@ export default function Countries(props) {
 
 
     const Labels = {
-        Select: languagePT ? 'Selecionar País' : 'Select Country',
-        SelectError: languagePT ? 'Erro ao consultar países' : 'Error querying countries'
+        Select: languagePT ? 'Selecionar País' : 'Select Country'
     }
 
     let required
@@ -33,7 +32,7 @@ export default function Countries(props) {
     function getCountries() {
         axios.get(config._urlCountries)
             .then(res => { if (res.data) setCountries(res.data) })
-            .catch(err => console.log(Labels.SelectError))
+            .catch(err => console.log(err))
     }
     function RenderCountries() {
         return (

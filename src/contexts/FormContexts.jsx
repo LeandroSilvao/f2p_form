@@ -5,8 +5,8 @@ import config from "../config";
 import { Error, Success, Warn } from '../components/Toastify/Toastify'
 
 const InitialState = {
-  languagePT: Boolean,
-  errorOnApi: Boolean,
+  languagePT: true,
+  Clicked: false,
   _Json_ClientAddresses: (obj) => { },
   _Json_ClientInfo: (obj) => { },
   _Json_AttorneyInfo: (obj) => { },
@@ -70,6 +70,7 @@ export const FormContext = createContext(InitialState);
 
 export const FormProvider = (props) => {
   const [languagePT, setLanguagePT] = useState(true)
+  const [Clicked, setClicked] = useState(false)
 
   useEffect(() => {
     const url = window.location.pathname.split("/")
@@ -77,8 +78,6 @@ export const FormProvider = (props) => {
     if (enUS.length > 0) setLanguagePT(false)
     else setLanguagePT(true)
   }, [])
-
-
 
   function _Json_ClientAddresses(obj) {
     reqJSON.addresses = [obj]
@@ -111,24 +110,22 @@ export const FormProvider = (props) => {
     reqJSON.formSuity = obj
   }
   function _Json_PPERelateds(obj) {
-    reqJSON.ppeRelateds = [obj]
+    reqJSON.ppeRelateds = obj
   }
   function _Json_BankAccounts(obj) {
     reqJSON.bankAccounts = obj
   }
   function _Json_LegalRepresentative(obj) {
-    reqJSON.legalRepresentatives = [obj]
+    reqJSON.legalRepresentatives = obj
   }
   function saveClient() {
-    console.log(reqJSON.professionalOccupationId)
-    const required = reqJSON.professionalOccupationId === 8 || reqJSON.professionalOccupationId === 9  ? false : true
-
+    const required = reqJSON.professionalOccupationId === 8 || reqJSON.professionalOccupationId === 9 ? false : true
     if (reqJSON.bankAccounts.length === 0) {
       const ErrorMessage = languagePT ? 'Adicione uma conta bancaria' : 'Add a bank account'
       Warn(
         "Addbankaccount",
         ErrorMessage,
-        5000,
+        10000,
         false
       );
     }
@@ -137,78 +134,54 @@ export const FormProvider = (props) => {
       Warn(
         "Addwealth/finance",
         ErrorMessage,
-        5000,
+        10000,
         false
       );
     }
     else {
+      setClicked(true)
       console.log(JSON.stringify(reqJSON))
-      // axios.post(config._urlSaveClient, reqJSON)
-      //   .then(res => {
-      //     if (res.data) {
-      //       // console.log(res.data)
-      //       CheckClient(res.data.code)
-      //     }
-      //   })
-      //   .catch(err => {
-      //     if (err.request || err.response) {
-      //       // The request was made but no response was received
-      //       console.log('Error', err.message);
-      //       const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-      //       Error(
-      //         "ErrorOnCreateClient",
-      //         ErrorMessage,
-      //         5000,
-      //         false
-      //       );
-      //     } else {
-      //       // Something happened in setting up the request that triggered an Error
-      //       console.log('Error', err.message);
-      //       const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-      //       Error(
-      //         "ErrorOnCreateClient",
-      //         ErrorMessage,
-      //         5000,
-      //         false
-      //       );
-      //     }
-      //   })
-    }
-  }
+      const headers = {
+        'X-Requested-With': '',
+      }
 
-
-  function CheckClient(clientCode) {
-    const interval = setInterval(() => {
-      axios.get(`${config._urlGetPluralAccount}${clientCode}`)
+      axios.post(config._urlSaveClient, reqJSON, { headers })
         .then(res => {
-          if (res.data.clientCode) {
-            // Cliente cadastrado com sucesso
-            const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
-            Success('ClientCreated', SuccessMessage, 5000, false)
-            clearInterval(interval)
+          if (res.data) {
+            CheckClient(res.data.code)
           }
         })
         .catch(err => {
+          setClicked(false)
           if (err.response) {
             // Request made and server responded
             if (err.response.data.innerMessage) {
-              const WarnMessage = languagePT ? 'O cadastro está na fila de análise/aprovação interna' : 'The registration is in the internal review / approval queue'
-              Warn(
-                "RegistryInQueue",
-                WarnMessage,
-                5000,
+              Error(
+                "SaveClient",
+                err.response.data.innerMessage,
+                20000,
+                false
+              );
+            }
+            else {
+              console.log('Error', err.message);
+              const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+              Error(
+                "ErrorOnCreateClient",
+                ErrorMessage,
+                20000,
                 false
               );
             }
           }
-          else if (err.request) {
+          else if (err.request || err.response) {
             // The request was made but no response was received
-            console.log(err.request);
+            console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
             Error(
               "ErrorOnCreateClient",
               ErrorMessage,
-              5000,
+              20000,
               false
             );
           } else {
@@ -218,12 +191,68 @@ export const FormProvider = (props) => {
             Error(
               "ErrorOnCreateClient",
               ErrorMessage,
-              5000,
+              10000,
               false
             );
           }
         })
-    }, 5000);
+    }
+  }
+
+  function CheckClient(clientCode) {
+    const interval = setInterval(() => {
+      axios.get(`${config._urlGetPluralAccount}${clientCode}`)
+        .then(res => {
+          if (res.data.clientCode) {
+            // Cliente cadastrado com sucesso
+            clearInterval(interval)
+            const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
+            setClicked(false)
+            Success('ClientCreated', SuccessMessage, 5000, false)
+            // setTimeout(() => {
+            //   window.location.replace("https://flow2pay.com.br/");
+            // }, 5000);
+          }
+        })
+        .catch(err => {
+          if (err.response) {
+            // Request made and server responded
+            if (err.response.data.innerMessage) {
+              setClicked(true)
+              const WarnMessage = languagePT ? 'O cadastro está na fila de análise/aprovação interna' : 'The registration is in the internal review / approval queue'
+              Warn(
+                "RegistryInQueue",
+                WarnMessage,
+                10000,
+                false
+              );
+            }
+          }
+          else if (err.request) {
+            setClicked(false)
+            // The request was made but no response was received
+            console.log(err.request);
+            const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+            Error(
+              "ErrorOnCreateClient",
+              ErrorMessage,
+              10000,
+              false
+            );
+          } else {
+            setClicked(false)
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', err.message);
+            const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+            Error(
+              "ErrorOnCreateClient",
+              ErrorMessage,
+              10000,
+              false
+            );
+          }
+        })
+    }, 10000);
 
   }
 
@@ -244,6 +273,7 @@ export const FormProvider = (props) => {
         _Json_BankAccounts,
         _Json_FormSuity,
         _Json_PPERelateds,
+        Clicked,
         saveClient
       }}
     >

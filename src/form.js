@@ -31,7 +31,7 @@ import { PPERelatedsProvider } from './contexts/PPERelatedsContext';
 import { FaAngleLeft } from "react-icons/fa";
 
 function App() {
-    const { saveClient,languagePT } = useContext(FormContext)
+    const { saveClient, languagePT, Clicked } = useContext(FormContext)
 
     const Labels = {
         HeaderTitle: languagePT ? "Cadastro de Cliente" : "Customer registration",
@@ -46,7 +46,7 @@ function App() {
     return (
         <>
             <header>
-                <a href="https://flow2pay.com.br/"><FaAngleLeft/>{Labels.BackToSite}</a>
+                <a href="https://flow2pay.com.br/"><FaAngleLeft />{Labels.BackToSite}</a>
                 <span>{Labels.HeaderTitle}</span>
             </header>
             <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off">
@@ -107,7 +107,10 @@ function App() {
                 </div>
 
                 <div className="div-footer">
-                    <button type="submit">{Labels.ButtonSave}</button>
+                    <button type="submit" disabled={Clicked}>
+                        {Clicked ? "" : Labels.ButtonSave}
+                        <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"}/> {Clicked ? "Aguarde" : ""}
+                    </button>
                 </div>
             </form>
         </>

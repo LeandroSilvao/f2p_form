@@ -35,8 +35,8 @@ export const LegalRepresentativeProvider = (props) => {
     }
 
     useEffect(() => {
-        if(!isRequired) _Json_LegalRepresentative({})
-        else if (name && taxpayerRegistry && relationshipTypeId) _Json_LegalRepresentative(legalRepresentatives)
+        if(!isRequired) _Json_LegalRepresentative([])
+        else if (name && taxpayerRegistry && relationshipTypeId) _Json_LegalRepresentative([legalRepresentatives])
     }, [isRequired, name, taxpayerRegistry, relationshipTypeId])
 
     useEffect(() => {

@@ -46,7 +46,8 @@ export const IdentificationTypeProvider = (props) => {
     useEffect(() => {
         if (identificationTypeId && emissionInssuer && emission && stateId) {
             if (identificationTypeId === "40") {
-                setnumber(taxPayerRegistry)
+                const cpf = taxPayerRegistry.replace(/[^\d]+/g, '')
+                setnumber(cpf)
                 _Json_ClientIdentification(reqJSON)
             }
             else if (number) _Json_ClientIdentification(reqJSON)
@@ -62,7 +63,7 @@ export const IdentificationTypeProvider = (props) => {
     function getIdentificationType() {
         axios.get(config._urlIdentificationType)
             .then(res => { if (res.data) setIdentificationTypes(res.data) })
-            .catch(err => console.log(`${err}`))
+            .catch(err => console.log(err))
     }
 
     function getStates() {

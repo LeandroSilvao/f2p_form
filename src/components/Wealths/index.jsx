@@ -66,7 +66,7 @@ export default function Wealths(props) {
                     <div className="wealth" key={`${cw.description}${index}`}>
                         <div className="d-flex d-flexdc">
                             <span className="inputDescription">Descrição: {cw.description}</span>
-                            <span className="inputDescription">Valor: {cw.value}</span>
+                            <span className="inputDescription">Valor: {cw.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}</span>
                         </div>
                         <button type="button" onClick={() => removeClientWealth(index)}>
                             <FaTrash />
@@ -82,9 +82,11 @@ export default function Wealths(props) {
         }
         else {
             setError(false)
+            console.log(parseFloat(value))
+            console.log(typeof parseFloat(value))
             let wealth = {
                 typeWealthId: parseInt(typeWealthId),
-                value: parseFloat(value).toFixed(2),
+                value: parseFloat(value),
                 description: description
             }
             setClientWealths([...clientWealths, wealth])

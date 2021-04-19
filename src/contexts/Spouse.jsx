@@ -43,29 +43,29 @@ export const SpouseProvider = (props) => {
     const [hide, setHide] = useState(false)
 
     let reqJSON = {
-        spouseId: spouseId,
+        spouseId: parseInt(spouseId),
         name: name,
         taxPayerRegistry: taxPayerRegistry.replace(/[^\d]+/g, ''),
         document: {
-            identificationTypeId: identificationTypeId,
+            identificationTypeId: parseInt(identificationTypeId),
             number: number,
             emissionInssuer: emissionInssuer,
             emission: emission,
-            stateId: stateId
+            stateId: parseInt(stateId)
         }
     }
 
     useEffect(() => {
         if (identificationTypeId === "40") {
             if (name && taxPayerRegistry && identificationTypeId && emissionInssuer && emission && stateId) {
-                const cpf = `${taxPayerRegistry.substring(0, 3)}.${taxPayerRegistry.substring(3, 6)}.${taxPayerRegistry.substring(6, 9)}-${taxPayerRegistry.substring(9, 11)}`
+                const cpf = taxPayerRegistry.replace(/[^\d]+/g, '')
                 reqJSON.document.number = identificationTypeId === "40" ? cpf : number
                 reqJSON.taxPayerRegistry = cpf
                 _Json_Spouse(reqJSON)
             }
         }
         else if (name && taxPayerRegistry && identificationTypeId && number && emissionInssuer && emission && stateId) {
-            const cpf = `${taxPayerRegistry.substring(0, 3)}.${taxPayerRegistry.substring(3, 6)}.${taxPayerRegistry.substring(6, 9)}-${taxPayerRegistry.substring(9, 11)}`
+            const cpf = taxPayerRegistry.replace(/[^\d]+/g, '')
             reqJSON.taxPayerRegistry = cpf
             _Json_Spouse(reqJSON)
         }
@@ -81,7 +81,7 @@ export const SpouseProvider = (props) => {
     function getIdentificationType() {
         axios.get(config._urlIdentificationType)
             .then(res => { if (res.data) setIdentificationTypes(res.data) })
-            .catch(err => console.log(`${err}`))
+            .catch(err => console.log(err))
     }
 
     function getStates() {

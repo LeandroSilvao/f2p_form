@@ -31,7 +31,7 @@ export const WorkProvider = (props) => {
         institutionName: institutionName,
         occupation: occupation,
         profession: profession,
-        corporateTaxpayerRegistry: corporateTaxpayerRegistry
+        corporateTaxpayerRegistry: corporateTaxpayerRegistry.replace(/[^\d]+/g, '')
     }
 
     useEffect(() => {

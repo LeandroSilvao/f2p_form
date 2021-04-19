@@ -120,7 +120,6 @@ export const ClientInfoProvider = (props) => {
         isAdministratorInAnotherAccount: isAdministratorInAnotherAccount,
     }
     useEffect(() => {
-        console.log(maritalStatusId)
         if(maritalStatusId !== "2") _Json_Spouse({})
     }, [maritalStatusId])
 

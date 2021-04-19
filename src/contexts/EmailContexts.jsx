@@ -43,7 +43,7 @@ export const EmailProvider = (props) => {
             .then(res => {
                 if (res.data) setEmailTypes(res.data)
             })
-            .catch(err => console.log(`${err}`))
+            .catch(err => console.log(err))
     }
 
     return (
