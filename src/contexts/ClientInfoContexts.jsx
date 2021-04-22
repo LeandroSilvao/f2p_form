@@ -12,7 +12,7 @@ const InitialState = {
     settaxPayerRegistry: () => { },
     birthDate: String,
     setbirthDate: () => { },
-    age: String,
+    age: Number,
     setAge: () => { },
     fatherName: String,
     setfatherName: () => { },
@@ -58,7 +58,7 @@ export const ClientInfoProvider = (props) => {
     const [shortName, setshortName] = useState('')
     const [taxPayerRegistry, settaxPayerRegistry] = useState('')
     const [birthDate, setbirthDate] = useState('')
-    const [age, setAge] = useState('')
+    const [age, setAge] = useState(-1)
     const [fatherName, setfatherName] = useState('')
     const [motherName, setmotherName] = useState('')
     const [nationality, setnationality] = useState('')

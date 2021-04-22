@@ -14,7 +14,7 @@ export default function Work(props) {
     const { name, taxpayerRegistry, relationshipTypesId,
         setname, settaxpayerRegistry, setRelationshipTypeId, setIsRequired } = useContext(LegalRepresentativeContext)
 
-    let required = age > 0 && age < 18 ? true : false
+    let required = age >= 0 && age < 18 ? true : false
 
     const Labels = {
         legalRepresentativeName: languagePT ? 'Nome ao representante legal do cliente' : '',

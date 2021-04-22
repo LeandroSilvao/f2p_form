@@ -141,11 +141,7 @@ export const FormProvider = (props) => {
     else {
       setClicked(true)
       console.log(JSON.stringify(reqJSON))
-      const headers = {
-        'X-Requested-With': '',
-      }
-
-      axios.post(config._urlSaveClient, reqJSON, { headers })
+      axios.post(config._urlSaveClient, reqJSON)
         .then(res => {
           if (res.data) {
             CheckClient(res.data.code)
@@ -155,13 +151,18 @@ export const FormProvider = (props) => {
           setClicked(false)
           if (err.response) {
             // Request made and server responded
-            if (err.response.data.innerMessage) {
-              Error(
-                "SaveClient",
-                err.response.data.innerMessage,
-                20000,
-                false
-              );
+            // equired in minor age. Client.BirthDate: 22/04/2021. Age: 0
+            let err_message
+            const { innerMessage, message } = err.response.data
+            if (innerMessage) {
+              if (innerMessage.includes("spouse has a same Taxpayer as client")) err_message = "Cônjuge tem o mesmo cpf que o cliente"
+              else err_message = innerMessage
+                Error(
+                  "SaveClient",
+                  err_message,
+                  20000,
+                  false
+                );
             }
             else {
               console.log('Error', err.message);
