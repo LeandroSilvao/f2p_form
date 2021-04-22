@@ -100,7 +100,7 @@ export default function Attorney() {
         <div className="Attorney">
 
             <div className="d-flex d-flexdc df-alc">
-                <p className="inputDescription">{Labels.isAcceptedOrderAttorney} ?</p>
+                <p className="inputDescription">{Labels.isAcceptedOrderAttorney}</p>
                 <Switch
                     onColor="#fac580"
                     onHandleColor="#F49925"

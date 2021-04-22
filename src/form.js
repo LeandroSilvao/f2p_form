@@ -30,6 +30,8 @@ import { PPERelatedsProvider } from './contexts/PPERelatedsContext';
 
 import { FaAngleLeft } from "react-icons/fa";
 
+import Header from './template/header'
+
 function App() {
     const { saveClient, languagePT, Clicked } = useContext(FormContext)
 
@@ -45,10 +47,7 @@ function App() {
     }
     return (
         <>
-            <header>
-                <a href="https://flow2pay.com.br/"><FaAngleLeft />{Labels.BackToSite}</a>
-                <span>{Labels.HeaderTitle}</span>
-            </header>
+            <Header/>
             <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off">
                 <div className="div-infos">
 

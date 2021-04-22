@@ -76,7 +76,7 @@ export default function PPERelateds(props) {
         <div>
 
             <div className="d-flex d-flexdc df-alc">
-                <p className="inputDescription">{Labels.PPERelated} ?</p>
+                <p className="inputDescription">{Labels.PPERelated}</p>
                 <Switch
                     onColor="#fac580"
                     onHandleColor="#F49925"
