@@ -31,7 +31,6 @@ header {
     width: 150px;
     max-width: 150px;
 }
-
 .div-empty {
     width: 70%;
     padding: 20px;
@@ -41,7 +40,6 @@ header {
     display: -ms-flexbox;
     align-items: center;
 }
-
 .div-empty ul {
     display: flex;
     display: -webkit-box;
@@ -49,19 +47,14 @@ header {
     justify-content: flex-end;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    /* border: solid 1px #fff; */
     margin-right: 20px;
     list-style-type: none;
     width: 100%;
 }
-
-.div-empty ul li {}
-
 .div-empty ul li a {
     text-decoration: none;
     margin: 0 15px 0 15px;
 }
-
 .div-empty ul li a span {
     color: #fff;
     font-family: "Source Sans Pro", Sans-serif;
@@ -69,7 +62,6 @@ header {
     font-weight: 400;
     text-transform: uppercase;
 }
-
 .div-empty ul li a span:hover {
     color: #F49925;
 }

@@ -34,7 +34,6 @@ import Header from './template/header'
 
 function App() {
     const { saveClient, languagePT, Clicked } = useContext(FormContext)
-
     const Labels = {
         HeaderTitle: languagePT ? "Cadastro de Cliente" : "Customer registration",
         BackToSite: languagePT ? "Voltar ao Site" : "Back to site",
@@ -45,10 +44,11 @@ function App() {
         e.preventDefault()
         saveClient()
     }
+
     return (
         <>
             <Header/>
-            <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off">
+            <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off" id="form">
                 <div className="div-infos">
 
                     <div className="div-client">
