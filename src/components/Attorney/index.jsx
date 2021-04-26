@@ -27,11 +27,12 @@ export default function Attorney() {
         onlyLettersTitle: languagePT ? 'Somente letras' : 'Only letters',
         isAcceptedOrderAttorney: languagePT ? 'Autoriza a transmissão de ordens por procurador ?' : 'Do you authorize the transmission of orders by a Attorney?',
         name: languagePT ? 'Nome' : 'Name',
+        Adress: languagePT ? 'Endereço' : 'Address',
         birthDate: languagePT ? 'Nascimento' : 'BirthDate',
         taxPayerRegistry: languagePT ? 'CPF' : 'Tax Payer Registry',
         cpfTitle: languagePT ? 'Digite um cpf valido' : 'Please enter a valid cpf',
         actionDescription: languagePT ? 'Descrição dos poderes' : 'Description of powers',
-        isPEP: languagePT ? 'O mesmo consta como Pessoa Politicamente Exposta.' : 'PPE Ocupation, whether he is listed as a Politically Exposed Person.',
+        isPEP: languagePT ? 'O mesmo consta como Pessoa Politicamente Exposta' : 'PPE Ocupation, whether he is listed as a Politically Exposed Person',
     }
 
     const { setCountryId, setStateId, setStateName, setCityId, setCityName, setTypeAddressId, setZipCode,
@@ -166,7 +167,7 @@ export default function Attorney() {
                     </div>
                 </div>
 
-
+                <p className="inputDescription">{Labels.Adress}</p>
                 <div className="d-flex">
                     <Countries onSelectCountry={onSelectCountry} ClientAdress={false} Attorney={true} />
                     <p className="required">*</p>
