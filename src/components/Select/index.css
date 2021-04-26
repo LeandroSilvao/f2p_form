@@ -56,6 +56,7 @@
     width: 30rem;
     max-height: 300px;
     overflow: auto;
+    z-index: 1;
 }
 
 .option {
@@ -75,18 +76,8 @@
     color: #fff; 
 }
 
-@media(max-width: 375px) {
+@media(max-width: 425px) {
     .options-select {
-        width: 20rem;
-    }
-  }
-  @media(max-width: 320px) {
-    .options-select {
-        width: 17rem;
-    }
-  }
-@media(max-width: 280px) {
-    .options-select {
-        width: 14rem;
+        width: 70%;
     }
   }
