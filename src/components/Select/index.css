@@ -72,8 +72,9 @@
 
 .option:hover {
     background-color: #248FF8;
-    color: #fff;
+    color: #fff; 
 }
+
 @media(max-width: 375px) {
     .options-select {
         width: 20rem;

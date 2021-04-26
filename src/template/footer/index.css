@@ -1,0 +1,188 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #071223;
+}
+
+.footer {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    color: #fff;
+    width: 100%;
+    padding: 50px;
+    margin: 0;
+    font-family: "Source Sans Pro", Sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+.footer-img {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 25%;
+}
+
+.div-footer-img {
+    display: flex;
+    flex-direction: column;
+    margin: 0 25px 0 25px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.div-footer-img img {
+    width: 180px;
+}
+
+.div-footer-img>span {
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.div-footer-img span:last-child {
+    color: #8B8B8B;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: left;
+}
+
+
+.footer-vantagens {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 20%;
+}
+
+.footer-vantagens span {
+    color: #8B8B8B;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: left;
+}
+
+.div-vantagens {
+    display: flex;
+    flex-direction: column;
+    margin: 0 25px 0 25px;
+}
+
+
+.footer-servicos {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 30%;
+}
+
+.div-servicos {
+    display: flex;
+    flex-direction: column;
+    margin: 0 25px 0 25px;
+}
+
+.footer-servicos span {
+    color: #8B8B8B;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: left;
+}
+
+
+.footer-links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 25%;
+}
+
+.div-links {
+    display: flex;
+    flex-direction: column;
+    margin: 0 25px 0 25px;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style-type: none;
+    width: 100%;
+}
+
+.footer-links ul li a {
+    color: #fff;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: left;
+}
+.footer-links ul li a:hover {
+    color: #F49925;
+}
+
+
+
+
+.footer-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F49925;
+    color: #FFFFFF;
+    font-family: "Source Sans Pro", Sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 20px;
+}
+
+a {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.footer-title {
+    font-family: "Montserrat", Sans-serif;
+    font-weight: bold;
+    color: inherit;
+    font-size: 1.3rem;
+    line-height: inherit;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+    .footer {
+        flex-direction: column;
+        padding: 0;
+        padding: 50px 0 50px 0;
+    }
+
+    .footer-links {
+        margin: 0px 0px 0px 0px;
+        padding: 25px 0px 25px 0px;
+        width: 100%;
+    }
+
+    .footer-servicos {
+        margin: 0px 0px 0px 0px;
+        padding: 25px 0px 25px 0px;
+        width: 100%;
+    }
+
+    .footer-vantagens {
+        margin: 0px 0px 0px 0px;
+        padding: 25px 0px 25px 0px;
+        width: 100%;
+    }
+
+    .footer-img {
+        margin: 0px 0px 0px 0px;
+        padding: 25px 0px 25px 0px;
+        width: 100%;
+    }
+}

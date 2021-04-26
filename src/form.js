@@ -28,9 +28,9 @@ import './Global.css';
 import { FormSuityProvider } from './contexts/FormSuity';
 import { PPERelatedsProvider } from './contexts/PPERelatedsContext';
 
-import { FaAngleLeft } from "react-icons/fa";
 
 import Header from './template/header'
+import Footer from './template/footer'
 
 function App() {
     const { saveClient, languagePT, Clicked } = useContext(FormContext)
@@ -112,6 +112,7 @@ function App() {
                     </button>
                 </div>
             </form>
+            <Footer/>
         </>
     );
 }
