@@ -107,8 +107,8 @@ function App() {
 
                 <div className="div-footer">
                     <button type="submit" disabled={Clicked}>
-                        {Clicked ? "" : Labels.ButtonSave}
-                        <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"}/> {Clicked ? "Aguarde" : ""}
+                        {/* {Clicked ? "" : Labels.ButtonSave} */}
+                        <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"}/> {Clicked ? "Aguarde" : Labels.ButtonSave}
                     </button>
                 </div>
             </form>
