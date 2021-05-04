@@ -9,7 +9,7 @@ export default function EmailType(props) {
     const { languagePT } = useContext(FormContext)
     const { emailTypes, setType, setMail } = useContext(EmailContext)
     const Labels = {
-        Select: languagePT ? 'Selecionar Tipo de Email' : 'Select Email Type',
+        Select: languagePT ? 'Selecionar tipo de e-mail' : 'Select Email Type',
         Email: languagePT ? 'Formato aceitado: example@domain.com' : 'Format accepted: example@domain.com'
     }
 

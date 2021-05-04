@@ -29,6 +29,17 @@ export default function States(props) {
         _Json_FormSuity(questionsAnswers)
     }
 
+    function RenderAnswers(QuestionId) {
+        const answersFiltered = answers.filter(a => a.suityQuestionId === QuestionId)
+        return (
+            answersFiltered.map(a => {
+                return (
+                    <option key={a.suityAnswerId} value={a.suityAnswerId} >{a.answer}</option>
+                )
+            })
+        )
+    }
+
     function RenderQuestions() {
         return (
             questions.map((q, index) => {
@@ -38,9 +49,15 @@ export default function States(props) {
                             <p className="required">*</p>
                             <p className="inputDescription">{q.question}</p>
                         </div>
-                        <Select title={Labels.answers} required={true} id={index} props={{ suityQuestionId: q.suityQuestionId }}
+                        <select className="selectpicker" required name={q.suityQuestionId} id={q.suityQuestionId}
+                            onChange={e => OnChange(e)}>
+                            <option defaultValue value="">{Labels.answers}</option>
+                            {RenderAnswers(q.suityQuestionId)}
+                        </select>
+
+                        {/* <Select title={Labels.answers} required={true} id={index} props={{ suityQuestionId: q.suityQuestionId }}
                             options={answers.filter(a => a.suityQuestionId === q.suityQuestionId).map(a => a)}
-                            value="suityAnswerId" label="answer" OnChange={OnChange} />
+                            value="suityAnswerId" label="answer" OnChange={OnChange} /> */}
                     </div>
                 )
             })

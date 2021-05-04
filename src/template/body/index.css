@@ -6,14 +6,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 40%;
     border: solid 1px;
     color: #FFFFFF;
+    padding-left: 50px;
 }
 
 .div-body-txt h1 {
-    text-align: center;
     font-family: 'Poppins';
     font-size: 3.5rem;
     font-weight: 550;
@@ -21,6 +21,7 @@
 }
 
 .div-body-txt span {
+    text-align: left;
     font-size: 1.125rem;
     color: #7A7A7A;
     font-weight: normal;
@@ -45,24 +46,29 @@
 
 
 @media(max-width: 768px) {
-    .div-body-txt {
-    }
+    .div-body-txt {}
+
     .div-body-txt h1 {
         text-align: center;
     }
 }
+
 @media(max-width: 540px) {
     .div-body {
         flex-direction: column-reverse;
         align-items: center;
     }
+
     .div-body-txt {
         width: 90%;
+        padding: 0;
     }
+
     .div-body-img {
         width: 100%;
     }
+
     .div-body-info-title {
-        margin-left: 10px ;
+        margin-left: 10px;
     }
 }

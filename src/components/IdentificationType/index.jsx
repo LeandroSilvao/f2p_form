@@ -11,10 +11,10 @@ export default function IdentificationType(props) {
         setstateId,setemissionInssuer, setnumber, setemission, emission } = useContext(IdentificationTypeContext)
     const Labels = {
         componentTitle: languagePT ? 'Identificação' : 'Identification',
-        Select: languagePT ? 'Selecionar Tipo de Identificação' : 'Select Identification Type',
+        Select: languagePT ? 'Selecionar tipo de identificação' : 'Select Identification Type',
         States: languagePT ? 'UF do documento' : 'Document UF',
         emission: languagePT ? 'Data de emissão' : 'Issue date',
-        emissionInssuer: languagePT ? 'Orgão Emissor' : 'Emission Inssuer',
+        emissionInssuer: languagePT ? 'Orgão emissor' : 'Emission Inssuer',
         documentNumber: languagePT ? 'Número do documento' : 'Document Number',
     }
     const Max = new Date().toISOString().split('T')[0]
