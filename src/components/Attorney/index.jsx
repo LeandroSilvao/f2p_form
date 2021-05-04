@@ -13,7 +13,7 @@ import { FormContext } from '../../contexts/FormContexts'
 import Switch from "react-switch";
 import InputMask from "react-input-mask";
 
-import {ValidCPF} from '../../utils'
+import { ValidCPF } from '../../utils'
 
 
 export default function Attorney() {
@@ -98,100 +98,152 @@ export default function Attorney() {
     }
 
     return (
-        <div className="Attorney">
+        <>
 
-            <div className="d-flex d-flexdc df-alc">
-                <p className="inputDescription">{Labels.isAcceptedOrderAttorney}</p>
+            <div className="Attorney-check">
                 <Switch
-                    onColor="#fac580"
+                    onColor="#071223"
                     onHandleColor="#F49925"
-                    offColor="#474e5e"
-                    offHandleColor="#000A1E"
+                    offColor="#071223"
+                    offHandleColor="#F49925"
                     checked={isAcceptedOrderAttorney}
                     onChange={cheked => setisAcceptedOrderAttorney(cheked)}
                     handleDiameter={30}
                     boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                     activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                    height={20}
-                    width={50}
+                    height={35}
+                    width={70}
                     className="react-switch"
                     id="material-switch"
                 />
+                <p className="inputDescription">{Labels.isAcceptedOrderAttorney}</p>
             </div>
 
-            <div className={isAcceptedOrderAttorney ? "d-flex d-flexdc" : "d-none"}>
-                <span className="inputDescriptionTitle">{Labels.componentTitle}</span>
+            <div className={isAcceptedOrderAttorney ? "attorney-info" : "d-none"}>
 
-                <div className="d-flex">
-                    <input value={name} required={isAcceptedOrderAttorney} type="text" name="name" id="name" placeholder={Labels.name}
-                        pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                    <p className="required">*</p>
-                </div>
-                <div>
+                <div className="d-flex-input d-flexdc">
                     <div className="d-flex">
-                        <InputMask value={taxpayerRegistry} required={isAcceptedOrderAttorney} type="text" name="taxpayerRegistry" id="taxpayerRegistry" 
-                        placeholder={Labels.taxPayerRegistry} mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} 
-                        onChange={e => OnChangeFields(e)} />
                         <p className="required">*</p>
+                        <p className="inputDescription">{Labels.name}</p>
                     </div>
+                    <input value={name} required={isAcceptedOrderAttorney} type="text" name="name" id="name"
+                        pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
+                </div>
+
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">{Labels.taxPayerRegistry}</p>
+                    </div>
+                    <InputMask value={taxpayerRegistry} required={isAcceptedOrderAttorney} type="text" name="taxpayerRegistry" id="taxpayerRegistry"
+                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle}
+                        onChange={e => OnChangeFields(e)} />
                     <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
                 </div>
-                <div className="d-flex">
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">{Labels.taxPayerRegistry}</p>
+                    </div>
+                    <InputMask value={taxpayerRegistry} required={isAcceptedOrderAttorney} type="text" name="taxpayerRegistry" id="taxpayerRegistry"
+                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle}
+                        onChange={e => OnChangeFields(e)} />
+                    <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
+                </div>
+
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">Data de nascimento</p>
+                    </div>
                     <input required={isAcceptedOrderAttorney} type="date" name="birthDate" id="birthDate" onChange={e => OnChangeFields(e)}
                         min={Min} max={Max} />
-                    <p className="required">*</p>
                 </div>
-                <div className="d-flex d-flexdc df-alc">
-                    <p className="inputDescription">{Labels.isPEP} ?</p>
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">{Labels.actionDescription}</p>
+                    </div>
+                    <input required={isAcceptedOrderAttorney} value={actionDescription} type="text" name="actionDescription" id="actionDescription"
+                        pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
+                </div>
+
+                <div className="Attorney-check">
                     <Switch
-                        onColor="#fac580"
+                        onColor="#071223"
                         onHandleColor="#F49925"
-                        offColor="#474e5e"
-                        offHandleColor="#000A1E"
+                        offColor="#071223"
+                        offHandleColor="#F49925"
                         checked={isPEP}
                         onChange={cheked => setisPEP(cheked)}
                         handleDiameter={30}
                         boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                         activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={50}
+                        height={35}
+                        width={70}
                         className="react-switch"
                         id="material-switch"
                     />
-                </div>
-                <div>
-                    <div className="d-flex">
-                        <input required={isAcceptedOrderAttorney} value={actionDescription} type="text" name="actionDescription" id="actionDescription"
-                            pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} placeholder={Labels.actionDescription} />
-                        <p className="required">*</p>
-                    </div>
+                    <p className="inputDescription">{Labels.isPEP} ?</p>
                 </div>
 
-                <p className="inputDescription">{Labels.Adress}</p>
-                <div className="d-flex">
-                    <Countries onSelectCountry={onSelectCountry} ClientAdress={false} Attorney={true} />
-                    <p className="required">*</p>
+                
+
+
+                <div className="componentTitle">
+                    <span>Endereço do procurador</span>
+                    <hr />
                 </div>
-                <div className="d-flex">
-                    <States onSelectState={onSelectState} ClientAdress={false} Attorney={true} />
-                    <p className="required">*</p>
-                </div>
-                <div className="d-flex">
-                    <Cities onSelectCity={onSelectCity} ClientAdress={false} Attorney={true} />
-                    <p className="required">*</p>
-                </div>
-                <div className="d-flex">
-                    <AdressType onSelectTypeAddress={onSelectTypeAddress} ClientAdress={false} Attorney={true} />
-                    <p className="required">*</p>
-                </div>
-                <AdressUtils ClientAdress={false} Attorney={true}>
+
+                <div className="d-flex-input d-flexdc">
                     <div className="d-flex">
-                        <CEP onCollectCep={onCollectCep} ClientAdress={false} Attorney={true} />
                         <p className="required">*</p>
+                        <p className="inputDescription">País</p>
+                    </div>
+                    <Countries onSelectCountry={onSelectCountry} ClientAdress={false} Attorney={true} />
+                </div>
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">Estado</p>
+                    </div>
+                    <States onSelectState={onSelectState} ClientAdress={false} Attorney={true} />
+                </div>
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">Cidade</p>
+                    </div>
+                    <Cities onSelectCity={onSelectCity} ClientAdress={false} Attorney={true} />
+                </div>
+
+                <div className="d-flex-input d-flexdc">
+                    <div className="d-flex">
+                        <p className="required">*</p>
+                        <p className="inputDescription">Selecione o tipo do endereço</p>
+                    </div>
+                    <AdressType onSelectTypeAddress={onSelectTypeAddress} ClientAdress={false} Attorney={true} />
+                </div>
+
+
+                <AdressUtils ClientAdress={true} Attorney={false}>
+                    <div className="d-flex-input d-flexdc">
+                        <div className="d-flex">
+                            <p className="required">*</p>
+                            <p className="inputDescription">CEP</p>
+                        </div>
+                        <CEP onCollectCep={onCollectCep} ClientAdress={false} Attorney={true} />
                     </div>
                 </AdressUtils>
+
             </div>
 
-        </div>
+        </>
     )
 }

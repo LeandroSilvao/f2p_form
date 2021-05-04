@@ -1,0 +1,19 @@
+.AdditionalInformations {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.AdditionalInformations>p {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #071223;
+    margin-left: 10px;
+}
+.AdditionalInformations-info {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    width: 100%;
+}

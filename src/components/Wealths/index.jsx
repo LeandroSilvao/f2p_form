@@ -5,7 +5,6 @@ import { FormContext } from "../../contexts/FormContexts";
 import { WealthsTypeContext } from '../../contexts/Wealths';
 
 import { FaTrash } from "react-icons/fa";
-import CurrencyInput from 'react-currency-masked-input'
 
 import './index.css'
 
@@ -19,11 +18,11 @@ export default function Wealths(props) {
     const [clientWealths, setClientWealths] = useState([])
 
     const Labels = {
-        SelectWealthTypeId: languagePT ? 'Selecione tipo de bens/finanças para cadastro' : 'Select type of wealth/finances to register',
-        inputDescriptionTitle: languagePT ? 'Informações de bens/finanças para cadastro' : 'Wealths/Finances information for registration',
+        SelectWealthTypeId: languagePT ? 'Selecione tipo de bens/finanças' : 'Select type of wealth/finances to register',
+        inputDescriptionTitle: languagePT ? 'Informações de bens/finanças' : 'Wealths/Finances information for registration',
         description: languagePT ? 'Descrição do bem/finança' : 'Wealths/Finances Description',
         value: languagePT ? 'Valor do bem/finança' : 'Wealths/Finances Value',
-        addButtonDescription: languagePT ? 'CLIQUE PARA ADICIONAR O BEM/FINANÇA' : 'CLICK TO ADD A WEALTH/FINANCE'
+        addButtonDescription: languagePT ? 'Adicionar bem ou finança' : 'CLICK TO ADD A WEALTH/FINANCE'
     }
 
     let required = professionalOccupationId === "8" || professionalOccupationId === "9" ||
@@ -109,34 +108,46 @@ export default function Wealths(props) {
 
     return (
         <div className={required ? "divWealthTypes" : "d-none"}>
-            <span className="inputDescriptionTitle">{Labels.inputDescriptionTitle}</span>
+            <div className="componentTitle">
+                <span>{Labels.inputDescriptionTitle}</span>
+                <hr />
+            </div>
 
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.SelectWealthTypeId}</p>
+                </div>
                 <select required={required && clientWealths.length === 0} name="wealthTypeId" id="wealthTypeId" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.SelectWealthTypeId}</option>
+                    <option defaultValue value=""></option>
                     {RenderWealthTypes()}
                 </select>
-                <p className="required">*</p>
             </div>
 
-            <div className="d-flex">
-                <input required={required && clientWealths.length === 0} value={description} type="text" name="wealthDescription" id="wealthDescription" placeholder={Labels.description}
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.description}</p>
+                </div>
+                <input required={required && clientWealths.length === 0} value={description} type="text" 
+                name="wealthDescription" id="wealthDescription"
                     onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
             </div>
 
-            <p className="inputDescription">{Labels.value}</p>
-            {/* <div className="d-flex"> */}
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.value}</p>
+                </div>
                 <input type="text" value={value} required={required && clientWealths.length === 0} name="wealthValue" id="wealthValue"
                     placeholder="$0" onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
             </div>
-            {/* </div> */}
+
 
             <div className="wealths">
                 {RenderClientWealths()}
             </div>
+
             <div className="addButton">
                 <button type="button" onClick={() => addClientWealth()}>
                     {Labels.addButtonDescription}

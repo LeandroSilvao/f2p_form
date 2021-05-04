@@ -66,7 +66,7 @@ export default function States(props) {
     }
     return (
         <select required={required} name="states" id="states" onChange={props.onSelectState}>
-            <option defaultValue value="">{Labels.Select}</option>
+            <option defaultValue value=""></option>
             {RenderStates()}
         </select>
     )

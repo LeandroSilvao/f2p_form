@@ -24,11 +24,16 @@ function Header() {
                             <span>Serviços</span>
                         </a>
                     </li>
-                    {/* <li>
+                    <li>
+                        <a href="">
+                            <span>Cadastre-se</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="https://flow2pay.com.br/en">
                             <span>EN-US</span>
                         </a>
-                    </li> */}
+                    </li>
                 </ul>
             </div>
 

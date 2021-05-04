@@ -30,7 +30,7 @@ export default function BankAccounts(props) {
         digit: languagePT ? 'Digito' : 'Digit',
         agency: languagePT ? 'Agência' : 'Agency',
         description: languagePT ? 'Contas bancarias' : 'Bank accounts',
-        addAccount: languagePT ? 'CLIQUE PARA ADICIONAR CONTA BANCARIA' : 'CLICK TO ADD BANK ACCOUNT'
+        addAccount: languagePT ? 'Adicionar conta bancária' : 'CLICK TO ADD BANK ACCOUNT'
     }
 
     function RenderBankAccountTypes() {
@@ -137,48 +137,74 @@ export default function BankAccounts(props) {
 
     return (
         <div className="divBankAccounts">
-            <span className="inputDescriptionTitle">{Labels.description}</span>
+            <div className="componentTitle">
+                <span>{Labels.description}</span>
+                <hr />
+            </div>
 
-            <div className="d-flex">
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.SelecttypeAccountId}</p>
+                </div>
                 <select required={clientBankAccounts.length === 0} name="typeAccountId" id="typeAccountId" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.SelecttypeAccountId}</option>
+                    <option defaultValue value=""></option>
                     {RenderBankAccountTypes()}
                 </select>
-                <p className="required">*</p>
             </div>
-            <div className="d-flex">
 
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.SelectbankId}</p>
+                </div>
                 <SelectSearch options={banks} search={true} filterOptions={fuzzySearch} name="name"
-                    emptyMessage="Not found" placeholder={Labels.SelectbankId} id="bankId"
+                    emptyMessage="Não encontrado" id="bankId"
                     printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)}/>
-                <p className="required">*</p>
+            </div>
+            
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.account}</p>
+                </div>
+                <input required={clientBankAccounts.length === 0} value={account} type="text" name="account" id="account"
+                   onChange={e => OnChangeField(e)} />
             </div>
 
-            <div className="d-flex">
-                <input required={clientBankAccounts.length === 0} value={account} type="text" name="account" id="account"
-                    placeholder={Labels.account} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
-            </div>
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.digit}</p>
+                </div>
                 <input required={clientBankAccounts.length === 0} value={digit} type="text" name="digit" id="digit"
-                    placeholder={Labels.digit} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
+                    onChange={e => OnChangeField(e)} />
             </div>
-            <div className="d-flex">
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.agency}</p>
+                </div>
                 <input required={clientBankAccounts.length === 0} value={agency} type="text" name="agency" id="agency"
-                    placeholder={Labels.agency} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
+                  onChange={e => OnChangeField(e)} />
             </div>
+
 
             <div className="bankAccounts">
                 {RenderclientBankAccounts()}
             </div>
+
+
             <div className="addAccount">
                 <button onClick={() => addBankAccount()} type="button">
                     {Labels.addAccount}
                 </button>
                 <p className={error ? "msgError" : "d-none"}>{Labels.selectItems}</p>
             </div>
+            
         </div>
     )
 }

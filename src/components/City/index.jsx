@@ -56,7 +56,7 @@ export default function Cities(props) {
     return (
         <div className="divCitiesSelect">
             <select required={required} name="cities" id="cities" onChange={props.onSelectCity}>
-                <option defaultValue value="">{Labels.Select}</option>
+                <option defaultValue value=""></option>
                 {RenderCities()}
             </select>
         </div>

@@ -48,24 +48,42 @@ export default function AdressUtils(props) {
     }
 
     return (
-        <div className="divCollectUtilsAdress">
+        // <div className="divCollectUtilsAdress">
+            <>
             {props.children}
-            <div className="d-flex">
-                <input required={required} onChange={e => setInput(e)} type="text" name="neighborhood" id="neighborhood" placeholder={Labels.neighborhood} />
-                <p className="required">*</p>
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.neighborhood}</p>
+                </div>
+                <input required={required} onChange={e => setInput(e)} type="text" name="neighborhood" id="neighborhood"/>
             </div>
-            <div className="d-flex">
-                <input required={required} onChange={e => setInput(e)} type="text" name="description" id="description" placeholder={Labels.description} />
-                <p className="required">*</p>
+
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.description}</p>
+                </div>
+                <input required={required} onChange={e => setInput(e)} type="text" name="description" id="description"/>
             </div>
-            <div className="d-flex">
-                <input required={required} onChange={e => setInput(e)} type="text" maxLength="20" name="number" id="number" placeholder={Labels.number} />
-                <p className="required">*</p>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.number}</p>
+                </div>
+                <input required={required} onChange={e => setInput(e)} type="text" maxLength="20" name="number" id="number"/>
             </div>
-            <div className="d-flex">
-                <input required={required} onChange={e => setInput(e)} type="text" name="complement" id="complement" placeholder={Labels.complement} />
-                <p className="required">*</p>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.complement}</p>
+                </div>
+                <input required={required} onChange={e => setInput(e)} type="text" name="complement" id="complement"/>
             </div>
-        </div>
+        </>
+        /* </div> */
     )
 }

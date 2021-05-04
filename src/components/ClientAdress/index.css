@@ -1,4 +1,14 @@
 .clientAdress {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: flex-end;
+  width: 100%;
 }
+
+/* @media(max-width: 768px) {
+  .clientAdress {
+    justify-content: space-around;
+  }
+} */

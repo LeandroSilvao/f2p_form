@@ -13,12 +13,13 @@ export default function States(props) {
 
     const Labels = {
         answers: languagePT ? 'Selecionar uma resposta para a pergunta' : '',
+        title: languagePT ? 'Questionário' : ''
     }
 
     let questionsAnswers = []
 
-    function OnChange(e){
-        const {value, props} = e
+    function OnChange(e) {
+        const { value, props } = e
         const req = {
             questionId: parseInt(props.suityQuestionId),
             answerId: parseInt(value)
@@ -30,20 +31,16 @@ export default function States(props) {
 
     function RenderQuestions() {
         return (
-            questions.map((q,index) => {
+            questions.map((q, index) => {
                 return (
                     <div className="div-question-answer" key={q.suityQuestionId} id={q.suityQuestionId}>
-                        <span className="inputDescriptionTitle">{q.question}</span>
                         <div className="d-flex">
-                            {/* <select className="selectpicker" required name={q.suityQuestionId} id={q.suityQuestionId} onChange={e => OnChangeField(e)}>
-                                <option defaultValue value="">{Labels.answers}</option>
-                                {RenderAnswers(q.suityQuestionId)}
-                            </select> */}
-                            <Select title={Labels.answers} required={true} id={index} props={{suityQuestionId: q.suityQuestionId}}
-                            options={answers.filter(a => a.suityQuestionId === q.suityQuestionId).map(a => a)} 
-                            value="suityAnswerId" label="answer" OnChange={OnChange}/>
                             <p className="required">*</p>
+                            <p className="inputDescription">{q.question}</p>
                         </div>
+                        <Select title={Labels.answers} required={true} id={index} props={{ suityQuestionId: q.suityQuestionId }}
+                            options={answers.filter(a => a.suityQuestionId === q.suityQuestionId).map(a => a)}
+                            value="suityAnswerId" label="answer" OnChange={OnChange} />
                     </div>
                 )
             })
@@ -51,17 +48,13 @@ export default function States(props) {
     }
 
 
-
-    // function RenderAnswers(QuestionId) {
-    //     const answersFiltered = answers.filter(a => a.suityQuestionId === QuestionId)
-    //     return (
-    //         answersFiltered.map(a => {
-    //             return (
-    //                 <option key={a.suityAnswerId} value={a.suityAnswerId} >{a.answer}</option>
-    //             )
-    //         })
-    //     )
-    // }
-
-    return (RenderQuestions())
+    return (
+        <>
+            <div className="componentTitle">
+                <span>{Labels.title}</span>
+                <hr />
+            </div>
+            {RenderQuestions()}
+        </>
+    )
 }

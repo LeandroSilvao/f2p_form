@@ -1,14 +1,12 @@
 .clientInfo {
   display: flex;
-  flex-direction: column;
-  /* border: solid 1px red; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  width: 100%;
 }
-
-
-
-.color{
-  color: #4B4B4B;
-  color: #bdbbbb;
-  color: #3B9E22;
-  color: #5965E0;
-}
+/* @media(max-width: 768px) {
+  .clientInfo {
+    justify-content: space-around;
+  }
+} */

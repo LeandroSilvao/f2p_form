@@ -6,7 +6,7 @@ import { FormContext } from "../../contexts/FormContexts";
 import InputMask from "react-input-mask";
 import Switch from "react-switch";
 
-import {ValidCPF} from '../../utils'
+import { ValidCPF } from '../../utils'
 
 
 import './index.css'
@@ -73,59 +73,68 @@ export default function PPERelateds(props) {
 
 
     return (
-        <div>
-
-            <div className="d-flex d-flexdc df-alc">
-                <p className="inputDescription">{Labels.PPERelated}</p>
+        <>
+            <div className="RelPPERelated">
                 <Switch
-                    onColor="#fac580"
+                    onColor="#071223"
                     onHandleColor="#F49925"
-                    offColor="#474e5e"
-                    offHandleColor="#000A1E"
+                    offColor="#071223"
+                    offHandleColor="#F49925"
                     checked={PPERelated}
                     onChange={cheked => setPPERelated(cheked)}
                     handleDiameter={30}
                     boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                     activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                    height={20}
-                    width={50}
+                    height={35}
+                    width={70}
                     className="react-switch"
                     id="material-switch"
                 />
+                <p className="inputDescription">{Labels.PPERelated}</p>
             </div>
 
-            <div className={PPERelated ? "d-flex" : "d-none"}>
-                <input value={name} required={PPERelated} type="text" name="name" id="name" placeholder={Labels.name}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
-            </div>
 
-            <div className={PPERelated ? "d-flex" : "d-none"}>
-                <input className={PPERelated ? "" : "d-none"} value={nationality} required={PPERelated} type="text"
-                    name="nationality" id="nationality" placeholder={Labels.nationality}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
-            </div>
-
-            <div className={PPERelated ? "" : "d-none"}>
+            <div className={PPERelated ? "d-flex-input d-flexdc" : "d-none"}>
                 <div className="d-flex">
-                    <InputMask className={PPERelated ? "" : "d-none"} value={taxPayerRegistry} required={PPERelated}
-                        type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
-                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" 
-                        title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
-
                     <p className="required">*</p>
+                    <p className="inputDescription">{Labels.name}</p>
                 </div>
+                <input value={name} required={PPERelated} type="text" name="name" id="name"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className={PPERelated ? "d-flex-input d-flexdc" : "d-none"}>
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.nationality}</p>
+                </div>
+                <input className={PPERelated ? "" : "d-none"} value={nationality} required={PPERelated} type="text"
+                    name="nationality" id="nationality"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className={PPERelated ? "d-flex-input d-flexdc" : "d-none"}>
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.taxPayerRegistry}</p>
+                </div>
+                <InputMask className={PPERelated ? "" : "d-none"} value={taxPayerRegistry} required={PPERelated}
+                    type="text" name="taxPayerRegistry" id="taxPayerRegistry"
+                    mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
+                    title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
                 <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
             </div>
 
-            <div className={PPERelated ? "d-flex" : "d-none"}>
-                <input className={PPERelated ? "" : "d-none"} required={PPERelated} value={occupation} type="text" name="occupation" id="occupation" placeholder={Labels.occupation}
+
+            <div className={PPERelated ? "d-flex-input d-flexdc" : "d-none"}>
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.occupation}</p>
+                </div>
+                <input className={PPERelated ? "" : "d-none"} required={PPERelated} value={occupation}
+                    type="text" name="occupation" id="occupation"
                     pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
             </div>
-        </div>
-
-
+        </>
     )
 }

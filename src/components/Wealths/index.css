@@ -1,29 +1,9 @@
 .divWealthTypes {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 25px;
-}
-
-.wealths {
-  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  align-self: center;
+  justify-content: left;
   width: 100%;
-}
-.wealth {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  word-break: break-all;
-  max-width: 150px;
-  padding: 10px;
-  background-color: transparent;
-  border-radius: 20px;
-  border: solid 1px #4B4B4B;
-  margin: 5px;
 }
 
 .addButton {
@@ -35,18 +15,41 @@
 
 .addButton>button {
   color: #fff;
+  font-size: 1.125rem;
   border: none;
-  background-color: var(--blu-f2p);
-  border-bottom: solid 0.15rem var(--orange-f2p);
-  width: 80%;
-  min-height: 2.5rem;
-  font-size: 0.7rem;
-  margin-top: 10px;
+  background-color: #F49925;
+  margin: 50px 0 0 20px;
   cursor: pointer;
+  padding: 15px 50px;
 }
+
 .addButton>button:hover {
-  background-color: #000a1ed0;
+  background-color: #cc8120;
 }
+
+.wealths {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-self: center;
+  width: 100%;
+}
+
+.wealth {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  word-break: break-all;
+  max-width: 200px;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: solid 1px #4B4B4B;
+  margin: 5px;
+}
+
+
 
 .wealth>button {
   display: flex;
@@ -61,7 +64,13 @@
   border: none;
   cursor: pointer;
 }
+
 .wealth>button:hover {
   background-color: rgb(236, 62, 62);
   color: #fff;
+}
+@media(max-width: 540px) {
+  .addButton>button {
+    margin: 100px 0 0 0;
+  }
 }

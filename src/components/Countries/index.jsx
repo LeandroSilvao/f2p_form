@@ -45,7 +45,7 @@ export default function Countries(props) {
     }
     return (
         <select required={required} name="countries" id="countries" onChange={props.onSelectCountry}>
-            <option defaultValue value="">{Labels.Select}</option>
+            <option defaultValue value=""></option>
             {RenderCountries()}
         </select>
     )

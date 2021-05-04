@@ -31,13 +31,15 @@ import { PPERelatedsProvider } from './contexts/PPERelatedsContext';
 
 import Header from './template/header'
 import Footer from './template/footer'
+import Body from './template/body'
+import AdditionalInformations from './components/AdditionalInformations';
 
 function App() {
     const { saveClient, languagePT, Clicked } = useContext(FormContext)
     const Labels = {
         HeaderTitle: languagePT ? "Cadastro de Cliente" : "Customer registration",
         BackToSite: languagePT ? "Voltar ao Site" : "Back to site",
-        ButtonSave: languagePT ? "Salvar" : "Save"
+        ButtonSave: languagePT ? "Solicitar Cadastro" : "Save"
     }
 
     function onSubmit(e) {
@@ -47,55 +49,44 @@ function App() {
 
     return (
         <>
-            <Header/>
+            <Header />
+            <Body />
+
             <form onSubmit={e => onSubmit(e)} action="" method="" autoComplete="off" id="form">
                 <div className="div-infos">
 
-                    <div className="div-client">
+                    <div className="div-client-info">
                         <ClientInfo />
-                        <div className="div-client-1">
-                            <PhonesProvider>
-                                <Phones />
-                            </PhonesProvider>
-
-                            <IdentificationTypeProvider>
-                                <IdentificationType />
-                            </IdentificationTypeProvider>
-
-                            <EmailProvider>
-                                <EmailType />
-                            </EmailProvider>
-
-                            <AdressesProvider>
-                                <ClientAdress />
-                            </AdressesProvider>
-
-                            <PPERelatedsProvider>
-                                <PPERelateds />
-                            </PPERelatedsProvider>
-
-                            <WorkProvider>
-                                <Work />
-                            </WorkProvider>
-                        </div>
                     </div>
 
-                    <div className="div-wealthsType">
+                    <div className="div-identification-type">
+                        <IdentificationTypeProvider>
+                            <IdentificationType />
+                        </IdentificationTypeProvider>
+                    </div>
+
+                    <div className="div-contact-adress">
+                        <AdressesProvider>
+                            <ClientAdress />
+                        </AdressesProvider>
+
+                        <PhonesProvider>
+                            <Phones />
+                        </PhonesProvider>
+                    </div>
+
+                    <div className="div-bank-accounts">
                         <BankAccountsProvider>
                             <BankAccounts />
                         </BankAccountsProvider>
+                    </div>
 
+                    <div className="div-wealths-types">
                         <WealthsTypeProvider>
                             <Wealths />
                         </WealthsTypeProvider>
                     </div>
 
-
-                    <div className="div-attorney">
-                        <AttorneyProvider>
-                            <Attorney />
-                        </AttorneyProvider>
-                    </div>
 
                     <div className="div-formsuity">
                         <FormSuityProvider>
@@ -103,16 +94,27 @@ function App() {
                         </FormSuityProvider>
                     </div>
 
+                    <div className="div-additional-information">
+                        <AdditionalInformations/>
+
+                        <PPERelatedsProvider>
+                            <PPERelateds />
+                        </PPERelatedsProvider>
+
+                        <AttorneyProvider>
+                            <Attorney />
+                        </AttorneyProvider>
+                    </div>
+
                 </div>
 
                 <div className="div-footer">
                     <button type="submit" disabled={Clicked}>
-                        {/* {Clicked ? "" : Labels.ButtonSave} */}
-                        <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"}/> {Clicked ? "Aguarde" : Labels.ButtonSave}
+                        <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"} /> {Clicked ? "Aguarde" : Labels.ButtonSave}
                     </button>
                 </div>
             </form>
-            <Footer/>
+            <Footer />
         </>
     );
 }

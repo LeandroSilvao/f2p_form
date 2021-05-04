@@ -62,42 +62,62 @@ export default function IdentificationType(props) {
     }
     return (
         <div className="divIdentificationTypeSelect">
-            <span className="inputDescriptionTitle">{Labels.componentTitle}</span>
-            <div className="d-flex">
+
+            <div className="componentTitle">
+                <span>{Labels.componentTitle}</span>
+                <hr />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.Select}</p>
+                </div>
                 <select required
                     name="identificationType" id="identificationType" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.Select}</option>
+                    <option defaultValue value=""></option>
                     {RenderIdentificationTypes()}
                 </select>
-                <p className="required">*</p>
             </div>
 
-            <div className={identificationTypeId === "40" ? "d-none" : "d-flex"}>
+            <div className={identificationTypeId === "40" ? "d-none" : "d-flex-input d-flexdc"}>
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.documentNumber}</p>
+                </div>
                 <input required={identificationTypeId !== "40"} type="text" name="identificationTypedocument" id="identificationTypedocument" onChange={e => OnChangeField(e)}
-                placeholder={Labels.documentNumber}/>
-                <p className="required">*</p>
+                />
             </div>
 
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.States}</p>
+                </div>
                 <select required name="IdtypeStateId" id="IdtypeStateId" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.States}</option>
+                    <option defaultValue value=""></option>
                     {RenderStates()}
                 </select>
-                <p className="required">*</p>
             </div>
 
-            <p className="inputDescriptionTitle">{Labels.emission}</p>
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.emission}</p>
+                </div>
                 <input value={emission} required type="date" name="identificationTypeemission" id="identificationTypeemission" onChange={e => OnChangeField(e)}
                     min={Min} max={Max}/>
-                <p className="required">*</p>
             </div>
 
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.emissionInssuer}</p>
+                </div>
                 <input required type="text" name="identificationTypeemissionInssuer" id="identificationTypeemissionInssuer" onChange={e => OnChangeField(e)}
-                placeholder={Labels.emissionInssuer}/>
-                <p className="required">*</p>
+                />
             </div>
+
 
         </div>
     )

@@ -5,6 +5,9 @@ import { ClientInfoContext } from '../../contexts/ClientInfoContexts';
 import { LegalRepresentativeContext } from '../../contexts/LegalRepresentativeContexts';
 
 import './index.css'
+import { ValidCPF } from '../../utils'
+
+import InputMask from 'react-input-mask'
 
 export default function Work(props) {
     const [errorCpf, setErrorCpf] = useState(false)
@@ -23,38 +26,7 @@ export default function Work(props) {
         cpfTitle: languagePT ? 'Digite um cpf valido' : '',
         onlyLettersTitle: languagePT ? 'Somente letras' : 'Only letters',
     }
-    function ValidCPF(cpf) {
-        var Soma;
-        var Resto;
-        Soma = 0;
-        if (cpf === "00000000000") return false;
-        if (cpf === "11111111111") return false;
-        if (cpf === "22222222222") return false;
-        if (cpf === "33333333333") return false;
-        if (cpf === "44444444444") return false;
-        if (cpf === "55555555555") return false;
-        if (cpf === "66666666666") return false;
-        if (cpf === "77777777777") return false;
-        if (cpf === "88888888888") return false;
-
-        if (cpf.includes('.')) cpf = cpf.replace(/\./g, '')
-        if (cpf.includes('-')) cpf = cpf.replace(/-/g, '')
-        // if (cpf.includes('-')) cpf = cpf.replace(/\-/g, '')
-
-        for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        Soma = 0;
-        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11)) Resto = 0;
-        if (Resto !== parseInt(cpf.substring(10, 11))) return false;
-        return true;
-    }
+    
     function OnChangeField(e) {
         const { value, id } = e.target
         switch (id) {
@@ -65,10 +37,11 @@ export default function Work(props) {
                 setRelationshipTypeId(value)
                 break;
             case 'legalRepresentativeTaxpayerRegistry':
+                const cpf = value.replace(/[^\d]+/g, '');
                 settaxpayerRegistry(value)
-                if (value.length < 11) setErrorCpf(false)
-                else if (value.length === 11) {
-                    if (ValidCPF(value)) {
+                if (cpf.length < 11) setErrorCpf(false)
+                else if (cpf.length === 11) {
+                    if (ValidCPF(cpf)) {
                         setErrorCpf(false)
                         settaxpayerRegistry(value)
                     }
@@ -77,7 +50,7 @@ export default function Work(props) {
                         setErrorCpf(true)
                     }
                 }
-                else if (value.length > 11) {
+                else if (cpf.length > 11) {
                     setErrorCpf(true)
                 }
                 break;
@@ -109,32 +82,42 @@ export default function Work(props) {
 
     return (
         <div className={required ? "divLegalRepresentative" : "d-none"}>
-            <span className="inputDescriptionTitle">Representates legais</span>
-
-
-            <div className="d-flex">
-                <input required={required} value={name} type="text" name="legalRepresentativeName" id="legalRepresentativeName" placeholder={Labels.legalRepresentativeName}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
+            <div className="componentTitle">
+                <span>Representates legais</span>
+                <hr />
             </div>
 
-            <div>
+            <div className="d-flex-input d-flexdc">
                 <div className="d-flex">
-                    <input value={taxpayerRegistry} required={required} type="text" name="legalRepresentativeTaxpayerRegistry" id="legalRepresentativeTaxpayerRegistry" placeholder={Labels.legalRepresentativeTaxpayerRegistry}
-                        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
                     <p className="required">*</p>
+                    <p className="inputDescription">{Labels.legalRepresentativeName}</p>
                 </div>
+                <input required={required} value={name} type="text" name="legalRepresentativeName" id="legalRepresentativeName"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.legalRepresentativeTaxpayerRegistry}</p>
+                </div>
+                <InputMask value={taxpayerRegistry} required={required} type="text" name="legalRepresentativeTaxpayerRegistry" id="legalRepresentativeTaxpayerRegistry"
+                    mask="999.999.999-99" title={Labels.cpfTitle} onChange={e => OnChangeField(e)} />
                 <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
             </div>
 
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.relationshipTypeId}</p>
+                </div>
                 <select required={required}
                     name="relationshipTypeId" id="relationshipTypeId" onChange={e => OnChangeField(e)}>
-                    <option defaultValue value="">{Labels.relationshipTypeId}</option>
+                    <option defaultValue value=""></option>
                     {RenderRelationshipTypes()}
                 </select>
-                <p className="required">*</p>
             </div>
+
         </div>
     )
 }

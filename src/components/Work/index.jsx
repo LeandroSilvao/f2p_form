@@ -4,7 +4,7 @@ import { FormContext } from "../../contexts/FormContexts";
 import { WorkContext } from '../../contexts/Work';
 import { ClientInfoContext } from '../../contexts/ClientInfoContexts';
 
-import {validarCNPJ} from '../../utils'
+import { validarCNPJ } from '../../utils'
 import InputMask from "react-input-mask";
 
 import './index.css'
@@ -72,32 +72,51 @@ export default function Work(props) {
 
     return (
         <div className={required ? "divWork" : "d-none"}>
-            <span className="inputDescriptionTitle">{Labels.componentTitle}</span>
-            <div className="d-flex">
-                <input required={required} value={institutionName} type="text" name="institutionName" id="institutionName" placeholder={Labels.institutionName}
-                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
+            <div className="componentTitle">
+                <span>{Labels.componentTitle}</span>
+                <hr />
             </div>
-            <div className="d-flex">
-                <input required={required} value={profession} type="text" name="profession" id="profession" placeholder={Labels.profession}
-                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
-            </div>
-            <div className="d-flex">
-                <input required={required} value={occupation} type="text" name="occupation" id="occupation" placeholder={Labels.occupation}
-                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
-                <p className="required">*</p>
-            </div>
-            <div>
-                <div className="d-flex">
-                    <InputMask required={required} value={corporateTaxpayerRegistry} type="text" name="corporateTaxpayerRegistry" id="corporateTaxpayerRegistry" 
-                    placeholder={Labels.corporateTaxpayerRegistry} pattern="^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$" mask="99.999.999/9999-99" title={Labels.cnpjTitle} 
-                    onChange={e => OnChangeField(e)} />
 
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
                     <p className="required">*</p>
+                    <p className="inputDescription">{Labels.institutionName}</p>
                 </div>
+                <input required={required} value={institutionName} type="text" name="institutionName" id="institutionName"
+                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.profession}</p>
+                </div>
+                <input required={required} value={profession} type="text" name="profession" id="profession"
+                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.occupation}</p>
+                </div>
+                <input required={required} value={occupation} type="text" name="occupation" id="occupation"
+                    pattern="(^[A-Za-z0-9 á-úÁ-Ú]+$)" title={Labels.onlyLettersAndNumbersTitle} onChange={e => OnChangeField(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.corporateTaxpayerRegistry}</p>
+                </div>
+                <InputMask required={required} value={corporateTaxpayerRegistry} type="text" name="corporateTaxpayerRegistry" id="corporateTaxpayerRegistry"
+                    pattern="^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$" mask="99.999.999/9999-99" title={Labels.cnpjTitle}
+                    onChange={e => OnChangeField(e)} />
                 <p className={errorCNPJ ? 'errorCNPJ' : 'd-none'}>{Labels.cnpjTitle}</p>
             </div>
+
+
         </div>
     )
 }

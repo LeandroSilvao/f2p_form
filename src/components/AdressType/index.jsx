@@ -40,7 +40,7 @@ export default function AdressType(props) {
     }
     return (
             <select required={required} name="addressType" id="addressType" onChange={props.onSelectTypeAddress}>
-                <option defaultValue value="">{Labels.Select}</option>
+                <option defaultValue value=""></option>
                 {RenderAdressType()}
             </select>
     )

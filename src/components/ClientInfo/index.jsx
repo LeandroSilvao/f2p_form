@@ -2,10 +2,13 @@ import React, { useContext, useState } from 'react'
 
 
 import Spouse from '../Spouse'
+import Work from '../Work'
 import LegalRepresentative from '../LegalRepresentative'
 
 import { LegalRepresentativeProvider } from '../../contexts/LegalRepresentativeContexts';
 import { SpouseProvider } from '../../contexts/Spouse';
+import { WorkProvider } from '../../contexts/Work';
+
 
 import { ClientInfoContext } from '../../contexts/ClientInfoContexts'
 import { FormContext } from '../../contexts/FormContexts'
@@ -41,7 +44,7 @@ export default function ClientInfo() {
         onlyLettersTitle: languagePT ? 'Somente letras' : 'Only letters',
         dateInvalid: languagePT ? 'Selecione uma data valida' : 'Select a valid date',
         cpfTitle: languagePT ? 'Digite um cpf valido' : 'Please enter a valid cpf',
-        name: languagePT ? 'Nome' : 'Name',
+        name: languagePT ? 'Nome Completo' : 'Name',
         shortName: languagePT ? 'Apelido' : 'ShortName',
         birthDate: languagePT ? 'Data de Nascimento' : 'BirthDate',
         fatherName: languagePT ? 'Nome do Pai' : 'Father Name',
@@ -217,24 +220,6 @@ export default function ClientInfo() {
             })
         )
     }
-    function RenderResidencesInOtherCountry() {
-        return (
-            residencesInOtherCountryId.map(roc => {
-                return (
-                    <option key={roc.countryId} value={roc.countryId}>{roc.name}</option>
-                )
-            })
-        )
-    }
-    function RenderOtherTaxResidencesCountry() {
-        return (
-            otherTaxResidencesCountryId.map(otrc => {
-                return (
-                    <option key={otrc.countryId} value={otrc.countryId}>{otrc.name}</option>
-                )
-            })
-        )
-    }
     function RenderEducationLevel() {
         return (
             educationsLevelId.map(ed => {
@@ -247,203 +232,160 @@ export default function ClientInfo() {
 
     return (
         <div className="clientInfo">
-            <span className="inputDescriptionTitle">{Labels.componentTitle}</span>
-            <div className="d-flex">
-                <input value={name} required type="text" name="name" id="name" placeholder={Labels.name}
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.name}</p>
+                </div>
+                <input value={name} required type="text" name="name" id="name"
                     pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                <p className="required">*</p>
             </div>
 
-            <div className="d-flex">
-                <input value={shortName} required type="text" name="shortName" id="shortName" placeholder={Labels.shortName}
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.shortName}</p>
+                </div>
+                <input value={shortName} required type="text" name="shortName" id="shortName"
                     pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                <p className="required">*</p>
             </div>
 
-            <p className="inputDescription">{Labels.birthDate}</p>
-            <div className="d-flex">
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.birthDate}</p>
+                </div>
                 <input value={birthDate} required type="date" name="birthDate" id="birthDate" onChange={e => OnChangeFields(e)}
                     min={Min} max={Max} title={Labels.onlyLettersTitle} />
-                <p className="required">*</p>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.fatherName}</p>
+                </div>
+                <input value={fatherName} required type="text" name="fatherName" id="fatherName"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.motherName}</p>
+                </div>
+                <input value={motherName} required type="text" name="motherName" id="motherName"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.taxPayerRegistry}</p>
+                </div>
+                <InputMask value={taxPayerRegistry} required type="text" name="taxPayerRegistry" id="taxPayerRegistry"
+                    mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeFields(e)} />
+                <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.genderId}</p>
+                </div>
+                <select value={genderId} required className="clSelect" name="gender" id="gender" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderGenders()}
+                </select>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.maritalStatusId}</p>
+                </div>
+                <select value={maritalStatusId} required className="clSelect" name="maritalStatusId" id="maritalStatusId" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderMaritalStatus()}
+                </select>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.nationality}</p>
+                </div>
+                <input value={nationality} required type="text" name="nationality" id="nationality"
+                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.countryBirthId}</p>
+                </div>
+                <select required className="clSelect" name="countryBirthId" id="countryBirthId" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderCountriesBirth()}
+                </select>
+            </div>
+
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.stateBirthName}</p>
+                </div>
+                <select value={stateBirthId} required className="clSelect" name="statesBirth" id="statesBirth" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderStates()}
+                </select>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.professionalOccupationId}</p>
+                </div>
+                <select value={professionalOccupationId} required className="clSelect" name="professionalOccupationId" id="professionalOccupationId" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderProfessionalOccupations()}
+                </select>
+            </div>
+
+            <div className="d-flex-input d-flexdc">
+                <div className="d-flex">
+                    <p className="required">*</p>
+                    <p className="inputDescription">{Labels.educationLevelId}</p>
+                </div>
+                <select value={educationLevelId} required className="clSelect" name="educationLevel" id="educationLevel" onChange={e => OnChangeFields(e)}>
+                    <option defaultValue value=""></option>
+                    {RenderEducationLevel()}
+                </select>
             </div>
 
             <LegalRepresentativeProvider>
                 <LegalRepresentative />
             </LegalRepresentativeProvider>
 
-            <div className="d-flex">
-                <input value={fatherName} required type="text" name="fatherName" id="fatherName" placeholder={Labels.fatherName}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                <p className="required">*</p>
-            </div>
-
-            <div className="d-flex">
-                <input value={motherName} required type="text" name="motherName" id="motherName" placeholder={Labels.motherName}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                <p className="required">*</p>
-            </div>
-
-            <div>
-                <div className="d-flex">
-                    <InputMask value={taxPayerRegistry} required type="text" name="taxPayerRegistry" id="taxPayerRegistry" placeholder={Labels.taxPayerRegistry}
-                        mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle} onChange={e => OnChangeFields(e)} />
-                    <p className="required">*</p>
-                </div>
-                <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
-            </div>
-
-            <div className="d-flex">
-                <select value={genderId} required className="clSelect" name="gender" id="gender" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.genderId}</option>
-                    {RenderGenders()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
-
-            <div className="d-flex">
-                <select value={maritalStatusId} required className="clSelect" name="maritalStatusId" id="maritalStatusId" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.maritalStatusId}</option>
-                    {RenderMaritalStatus()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
             <SpouseProvider>
                 <Spouse hide={maritalStatusId === '2' ? false : true} required={maritalStatusId === '2' ? true : false}>
-
-                    <div className={maritalStatusId === '2' ? "d-flex" : "d-none"}>
+                    <div className={maritalStatusId === '2' ? "d-flex-input d-flexdc" : "d-none"}>
+                        <div className="d-flex">
+                            <p className="required">*</p>
+                            <p className="inputDescription">{Labels.maritalAgreementId}</p>
+                        </div>
                         <select value={maritalAgreementId} required={maritalStatusId === '2'} className="clSelect" name="maritalAgreementId" id="maritalAgreementId" onChange={e => OnChangeFields(e)}>
-                            <option defaultValue value="">{Labels.maritalAgreementId}</option>
+                            <option defaultValue value=""></option>
                             {RenderMaritalAgreementId()}
                         </select>
-                        <p className="required">*</p>
                     </div>
                 </Spouse>
             </SpouseProvider>
 
-
-            <div className="d-flex">
-                <input value={nationality} required type="text" name="nationality" id="nationality" placeholder={Labels.nationality}
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-                <p className="required">*</p>
-            </div>
-
-            <div className="d-flex">
-                <select required className="clSelect" name="countryBirthId" id="countryBirthId" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.countryBirthId}</option>
-                    {RenderCountriesBirth()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
-            <div className="d-flex">
-                <select value={stateBirthId} required className="clSelect" name="statesBirth" id="statesBirth" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.stateBirthName}</option>
-                    {RenderStates()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
-
-            <div className="d-flex">
-                <select value={professionalOccupationId} required className="clSelect" name="professionalOccupationId" id="professionalOccupationId" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.professionalOccupationId}</option>
-                    {RenderProfessionalOccupations()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
-            <div className="d-flex">
-                <select value={educationLevelId} required className="clSelect" name="educationLevel" id="educationLevel" onChange={e => OnChangeFields(e)}>
-                    <option defaultValue value="">{Labels.educationLevelId}</option>
-                    {RenderEducationLevel()}
-                </select>
-                <p className="required">*</p>
-            </div>
-
-            <p className="inputDescription">{Labels.residenceInOtherCountryId}</p>
-            <select value={residenceInOtherCountryId} className="clSelect" name="residenceInOtherCountryId" id="residenceInOtherCountryId" onChange={e => OnChangeFields(e)}>
-                <option defaultValue value="">{Labels.residenceInOtherCountryIdSelect}</option>
-                {RenderResidencesInOtherCountry()}
-            </select>
-
-            <p className="inputDescription">{Labels.otherTaxResidenceCountryId}</p>
-            <select value={otherTaxResidenceCountryId} className="clSelect" name="otherTaxResidenceCountryId" id="otherTaxResidenceCountryId" onChange={e => OnChangeFields(e)}>
-                <option defaultValue value="">{Labels.otherTaxResidenceCountryIdSelect}</option>
-                {RenderOtherTaxResidencesCountry()}
-            </select>
-
-
-
-            <div>
-                <p className="inputDescription">{Labels.ppeOccupation}</p>
-                <input value={ppeOccupation} type="text" name="ppeOccupation" id="ppeOccupation"
-                    pattern="(^[A-Za-z á-úÁ-Ú]+$)" title={Labels.onlyLettersTitle} onChange={e => OnChangeFields(e)} />
-            </div>
-
-
-            <div className="d-flex df-jcspb d-flexdc">
-
-                <div className="d-flex d-flexdc df-alc">
-                    <p className="inputDescription">{Labels.usPerson} ?</p>
-                    <Switch
-                        onColor="#fac580"
-                        onHandleColor="#F49925"
-                        offColor="#474e5e"
-                        offHandleColor="#000A1E"
-                        checked={usPerson}
-                        onChange={cheked => setusPerson(cheked)}
-                        handleDiameter={30}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={50}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                </div>
-
-                <div className="d-flex d-flexdc df-alc">
-                    <p className="inputDescription">{Labels.isAssociatedPerson} ?</p>
-                    <Switch
-                        onColor="#fac580"
-                        onHandleColor="#F49925"
-                        offColor="#474e5e"
-                        offHandleColor="#000A1E"
-                        checked={isAssociatedPerson}
-                        onChange={cheked => setisAssociatedPerson(cheked)}
-                        handleDiameter={30}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={50}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                </div>
-
-                <div className="d-flex d-flexdc df-alc">
-                    <p className="inputDescription">{Labels.isAdministratorInAnotherAccount} ?</p>
-                    <Switch
-                        onColor="#fac580"
-                        onHandleColor="#F49925"
-                        offColor="#474e5e"
-                        offHandleColor="#000A1E"
-                        checked={isAdministratorInAnotherAccount}
-                        onChange={cheked => setisAdministratorInAnotherAccount(cheked)}
-                        handleDiameter={30}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={50}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                </div>
-
-            </div>
-
+            <WorkProvider>
+                <Work />
+            </WorkProvider>
         </div>
     )
 }
