@@ -3,10 +3,15 @@ import axios from 'axios'
 import config from "../config";
 
 import { Error, Success, Warn } from '../components/Toastify/Toastify'
+import Modal from "../components/Modal";
 
 const InitialState = {
   languagePT: true,
   Clicked: false,
+  agency: '',
+  account: '',
+  digit: '',
+  SaveClientWarn: '',
   _Json_ClientAddresses: (obj) => { },
   _Json_ClientInfo: (obj) => { },
   _Json_AttorneyInfo: (obj) => { },
@@ -20,7 +25,8 @@ const InitialState = {
   _Json_BankAccounts: (obj) => { },
   _Json_LegalRepresentative: (obj) => { },
   _Json_PPERelateds: (obj) => { },
-  saveClient: () => { }
+  saveClient: () => { },
+  Redirect: () => { }
 }
 
 let reqJSON = {
@@ -71,13 +77,26 @@ export const FormContext = createContext(InitialState);
 export const FormProvider = (props) => {
   const [languagePT, setLanguagePT] = useState(true)
   const [Clicked, setClicked] = useState(false)
+  const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
+  const [SaveClientWarn, setSaveClientWarn] = useState(false);
+
+  const [agency, setagency] = useState('')
+  const [account, setaccount] = useState('')
+  const [digit, setdigit] = useState('')
 
   useEffect(() => {
     const url = window.location.pathname.split("/")
     const enUS = url.filter(i => i === 'en')
     if (enUS.length > 0) setLanguagePT(false)
     else setLanguagePT(true)
+    setIsLevelUpModalOpen(true)
+    setSaveClientWarn('O cadastro está na fila de análise/aprovação interna')
+
   }, [])
+
+  function closeLevelUpModal() {
+    setIsLevelUpModalOpen(false);
+  }
 
   function _Json_ClientAddresses(obj) {
     reqJSON.addresses = [obj]
@@ -140,6 +159,7 @@ export const FormProvider = (props) => {
     }
     else {
       setClicked(true)
+      setSaveClientWarn('')
       console.log(JSON.stringify(reqJSON))
       axios.post(config._urlSaveClient, reqJSON)
         .then(res => {
@@ -150,69 +170,80 @@ export const FormProvider = (props) => {
         .catch(err => {
           setClicked(false)
           if (err.response) {
-            // Request made and server responded
-            // equired in minor age. Client.BirthDate: 22/04/2021. Age: 0
             let err_message
             const { innerMessage, message } = err.response.data
             if (innerMessage) {
               if (innerMessage.includes("spouse has a same Taxpayer as client")) err_message = "Cônjuge tem o mesmo cpf que o cliente"
               else err_message = innerMessage
-                Error(
-                  "SaveClient",
-                  err_message,
-                  20000,
-                  false
-                );
+              setSaveClientWarn(err_message)
+              // Error(
+              //   "SaveClient",
+              //   err_message,
+              //   20000,
+              //   false
+              // );
             }
             else {
               console.log('Error', err.message);
               const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-              Error(
-                "ErrorOnCreateClient",
-                ErrorMessage,
-                20000,
-                false
-              );
+              setSaveClientWarn(ErrorMessage)
+              // Error(
+              //   "ErrorOnCreateClient",
+              //   ErrorMessage,
+              //   20000,
+              //   false
+              // );
             }
           }
           else if (err.request || err.response) {
             // The request was made but no response was received
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              20000,
-              false
-            );
+            // Error(
+            //   "ErrorOnCreateClient",
+            //   ErrorMessage,
+            //   20000,
+            //   false
+            // );
+            setSaveClientWarn(ErrorMessage)
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              10000,
-              false
-            );
+            // Error(
+            //   "ErrorOnCreateClient",
+            //   ErrorMessage,
+            //   10000,
+            //   false
+            // );
+            setSaveClientWarn(ErrorMessage)
           }
         })
     }
   }
 
   function CheckClient(clientCode) {
+    setSaveClientWarn('')
     const interval = setInterval(() => {
       axios.get(`${config._urlGetPluralAccount}${clientCode}`)
         .then(res => {
           if (res.data.clientCode) {
-            // Cliente cadastrado com sucesso
+            const bankAccount = res.data.bankAccount
+            setagency(bankAccount.agency)
+            setaccount(bankAccount.account)
+            setdigit(bankAccount.digit)
+
+            console.log(bankAccount)
+
             clearInterval(interval)
-            const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
+            setIsLevelUpModalOpen(true)
+
+
+            // const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
             setClicked(false)
-            Success('ClientCreated', SuccessMessage, 5000, false)
-            // setTimeout(() => {
-            //   window.location.replace("https://flow2pay.com.br/");
-            // }, 5000);
+            // Success('ClientCreated', SuccessMessage, 5000, false)
+
+
           }
         })
         .catch(err => {
@@ -221,12 +252,13 @@ export const FormProvider = (props) => {
             if (err.response.data.innerMessage) {
               setClicked(true)
               const WarnMessage = languagePT ? 'O cadastro está na fila de análise/aprovação interna' : 'The registration is in the internal review / approval queue'
-              Warn(
-                "RegistryInQueue",
-                WarnMessage,
-                10000,
-                false
-              );
+              setSaveClientWarn(WarnMessage)
+              // Warn(
+              //   "RegistryInQueue",
+              //   WarnMessage,
+              //   10000,
+              //   false
+              // );
             }
           }
           else if (err.request) {
@@ -234,33 +266,46 @@ export const FormProvider = (props) => {
             // The request was made but no response was received
             console.log(err.request);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              10000,
-              false
-            );
+            setSaveClientWarn(ErrorMessage)
+            // Error(
+            //   "ErrorOnCreateClient",
+            //   ErrorMessage,
+            //   10000,
+            //   false
+            // );
           } else {
             setClicked(false)
             // Something happened in setting up the request that triggered an Error
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            Error(
-              "ErrorOnCreateClient",
-              ErrorMessage,
-              10000,
-              false
-            );
+            setSaveClientWarn(ErrorMessage)
+            // Error(
+            //   "ErrorOnCreateClient",
+            //   ErrorMessage,
+            //   10000,
+            //   false
+            // );
           }
         })
     }, 10000);
 
   }
 
+  function Redirect() {
+    closeLevelUpModal()
+    // setTimeout(() => {
+    //   window.location.replace("https://flow2pay.com.br/");
+    // }, 5000);
+  }
+
   return (
     <FormContext.Provider
       value={{
+        agency,
+        account,
+        digit,
         languagePT,
+        SaveClientWarn,
         _Json_ClientAddresses,
         _Json_ClientInfo,
         _Json_AttorneyInfo,
@@ -275,10 +320,12 @@ export const FormProvider = (props) => {
         _Json_FormSuity,
         _Json_PPERelateds,
         Clicked,
+        Redirect,
         saveClient
       }}
     >
       {props.children}
+      {isLevelUpModalOpen && <Modal />}
     </FormContext.Provider>
   );
 };

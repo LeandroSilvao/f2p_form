@@ -106,11 +106,13 @@ form {
 }
 
 .div-footer {
+  /* border: solid 1px; */
   margin: 100px 0;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -131,6 +133,23 @@ form {
 
 .div-footer>button:hover {
   background-color: #1d9b90;
+}
+
+.div-footer>button>i {
+  margin-right: 15px;
+}
+
+.div-footer>span {
+  /* margin-left: 15px; */
+  text-align: left;
+  font-family: 'Source Sans Pro';
+  color: #071223;
+  font-size: 1.625rem;
+  font-weight: 700;
+}
+
+.buttonDisable {
+  cursor: not-allowed;
 }
 
 input,
@@ -198,7 +217,7 @@ span {
 
 .msgError {
   color: var(--red);
-  font-size: 0.75rem;
+  font-size: 1.125rem;
 }
 
 .inputDescription {
@@ -217,19 +236,35 @@ span {
 }
 
 .errorCpf {
-  color: var(--red);
-  font-size: 0.75rem;
+  font-family: 'Source Sans Pro';
+  color: #F4275E;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.cepError {
+  font-family: 'Source Sans Pro';
+  color: #F4275E;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 .select-search {
   width: 100%;
 }
 
+.select-search__select {
+  width: 29.5%;
+  position: absolute;
+  background: #fff;
+}
+
 .select-search__options {
   display: flex;
   flex-direction: column;
   max-height: 200px;
-  max-width: 20rem;
+  /* max-width: 20rem; */
   overflow: auto;
   list-style: none;
   border: solid 1px var(--text);
@@ -329,6 +364,7 @@ span {
     max-width: 65%;
     width: 65%;
   }
+
   .div-footer>button {
     padding: 15px 70px;
   }
@@ -343,13 +379,14 @@ span {
 @media(max-width: 540px) {
   .d-flex-input {
     width: 90%;
-    margin: 0;
+    margin: 0px;
+    margin-bottom: 20px;
   }
 
   .componentTitle {
     flex-direction: column;
     align-items: center;
-    margin: 100px 0 50px 0;
+    margin: 30px 0 50px 0;
   }
 
   .componentTitle>span {
@@ -358,6 +395,7 @@ span {
   }
 
   .componentTitle>hr {
+    margin-top: 5px;
     max-width: 100%;
     width: 100%;
   }
@@ -371,7 +409,17 @@ span {
   .div-footer>button {
     padding: 15px 70px;
   }
+  .select-search__select {
+    width: 80%;
+  }
 
+  /* form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5px;
+  } */
 }
 
 @media(max-width: 280px) {

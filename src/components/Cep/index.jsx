@@ -38,9 +38,9 @@ export default function CEP(props) {
 
     return (
         <div className="divCollectCep">
-            <input required={required} className={error ? "error" : ""} type="text" name="cep" id="cep"
+            <input required={required} type="text" name="cep" id="cep"
                 maxLength="8" onChange={e => ValidateCEP(e)} />
-            <p className={error ? "msgError" : "d-none"}>{Labels.Error}</p>
+            <p className={error ? "cepError" : "d-none"}>{Labels.Error}</p>
         </div>
     )
 }

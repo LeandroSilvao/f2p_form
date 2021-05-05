@@ -23,7 +23,7 @@ export default function BankAccounts(props) {
         typeAccountId, settypeAccountId } = useContext(BankAccountsContext)
     const [clientBankAccounts, setclientBankAccounts] = useState([])
     const Labels = {
-        selectItems: languagePT ? 'Selecione um item da lista e Preencha os campos' : 'Select an item from the list and fill the fields',
+        selectItems: languagePT ? 'Selecione um item de cada lista e preencha os campos' : 'Select an item from the list and fill the fields',
         SelecttypeAccountId: languagePT ? 'Tipo de conta bancária' : 'Bank account type',
         SelectbankId: languagePT ? 'Selecione o seu banco' : 'Select your bank',
         account: languagePT ? 'Número da conta bancária' : 'Bank account number',
@@ -56,13 +56,13 @@ export default function BankAccounts(props) {
             clientBankAccounts.map((bat, index) => {
                 return (
                     <div className="account" key={index}>
-                        <div className="d-flex d-flexdc">
-                            <span className="inputDescription">{banks.find(b => b.value === bat.bankId.toString()).name}</span>
-                            <span className="inputDescription">Agencia: {bat.agency}</span>
-                            <span className="inputDescription">Conta: {bat.account}</span>
+                        <div className="account-spans">
+                            <span>{banks.find(b => b.value === bat.bankId.toString()).name}</span>
+                            <span>Agencia: {bat.agency}</span>
+                            <span>Conta: {bat.account}-{bat.digit}</span>
                         </div>
                         <button type="button" onClick={() => removeBankAccount(index)}>
-                            <FaTrash />
+                            Apagar conta
                         </button>
                     </div>
                 )
@@ -162,16 +162,16 @@ export default function BankAccounts(props) {
                 </div>
                 <SelectSearch options={banks} search={true} filterOptions={fuzzySearch} name="name"
                     emptyMessage="Não encontrado" id="bankId"
-                    printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)}/>
+                    printOptions="auto" closeOnSelect={true} onChange={id => setbankId(id)} />
             </div>
-            
+
             <div className="d-flex-input d-flexdc">
                 <div className="d-flex">
                     <p className="required">*</p>
                     <p className="inputDescription">{Labels.account}</p>
                 </div>
                 <input required={clientBankAccounts.length === 0} value={account} type="text" name="account" id="account"
-                   onChange={e => OnChangeField(e)} />
+                    onChange={e => OnChangeField(e)} />
             </div>
 
             <div className="d-flex-input d-flexdc">
@@ -189,7 +189,7 @@ export default function BankAccounts(props) {
                     <p className="inputDescription">{Labels.agency}</p>
                 </div>
                 <input required={clientBankAccounts.length === 0} value={agency} type="text" name="agency" id="agency"
-                  onChange={e => OnChangeField(e)} />
+                    onChange={e => OnChangeField(e)} />
             </div>
 
 
@@ -204,7 +204,7 @@ export default function BankAccounts(props) {
                 </button>
                 <p className={error ? "msgError" : "d-none"}>{Labels.selectItems}</p>
             </div>
-            
+
         </div>
     )
 }

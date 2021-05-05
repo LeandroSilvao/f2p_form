@@ -63,12 +63,12 @@ export default function Wealths(props) {
             clientWealths.map((cw, index) => {
                 return (
                     <div className="wealth" key={`${cw.description}${index}`}>
-                        <div className="d-flex d-flexdc">
-                            <span className="inputDescription">Descrição: {cw.description}</span>
-                            <span className="inputDescription">Valor: {cw.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}</span>
+                        <div className="wealth-spans">
+                            <span>Descrição: {cw.description}</span>
+                            <span>Valor: {cw.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}</span>
                         </div>
                         <button type="button" onClick={() => removeClientWealth(index)}>
-                            <FaTrash />
+                            Apagar bem/finança
                         </button>
                     </div>
                 )
@@ -152,7 +152,7 @@ export default function Wealths(props) {
                 <button type="button" onClick={() => addClientWealth()}>
                     {Labels.addButtonDescription}
                 </button>
-                <p className={error ? "msgError" : "d-none"}>Selecione um item da lista e Preencha os campos</p>
+                <p className={error ? "msgError" : "d-none"}>Selecione um item de cada lista e preencha os campos</p>
             </div>
         </div>
     )

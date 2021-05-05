@@ -46,7 +46,9 @@
 
 
 @media(max-width: 768px) {
-    .div-body-txt {}
+    .div-body-txt {
+        padding: 10px;
+    }
 
     .div-body-txt h1 {
         text-align: center;
@@ -70,5 +72,12 @@
 
     .div-body-info-title {
         margin-left: 10px;
+        font-size: 1.625rem;
+        font-weight: 500;
+    }
+
+    .div-body-txt h1 {
+        /* font-size: 1.625rem;
+        font-weight: 500; */
     }
 }

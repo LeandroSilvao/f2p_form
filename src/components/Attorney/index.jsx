@@ -142,7 +142,7 @@ export default function Attorney() {
                     <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
                 </div>
 
-                <div className="d-flex-input d-flexdc">
+                {/* <div className="d-flex-input d-flexdc">
                     <div className="d-flex">
                         <p className="required">*</p>
                         <p className="inputDescription">{Labels.taxPayerRegistry}</p>
@@ -151,7 +151,7 @@ export default function Attorney() {
                         mask="999.999.999-99" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" title={Labels.cpfTitle}
                         onChange={e => OnChangeFields(e)} />
                     <p className={errorCpf ? 'errorCpf' : 'd-none'}>{Labels.cpfTitle}</p>
-                </div>
+                </div> */}
 
 
                 <div className="d-flex-input d-flexdc">
@@ -232,7 +232,7 @@ export default function Attorney() {
                 </div>
 
 
-                <AdressUtils ClientAdress={true} Attorney={false}>
+                <AdressUtils ClientAdress={false} Attorney={true}>
                     <div className="d-flex-input d-flexdc">
                         <div className="d-flex">
                             <p className="required">*</p>

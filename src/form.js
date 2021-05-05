@@ -35,7 +35,7 @@ import Body from './template/body'
 import AdditionalInformations from './components/AdditionalInformations';
 
 function App() {
-    const { saveClient, languagePT, Clicked } = useContext(FormContext)
+    const { saveClient, languagePT, Clicked, SaveClientWarn } = useContext(FormContext)
     const Labels = {
         HeaderTitle: languagePT ? "Cadastro de Cliente" : "Customer registration",
         BackToSite: languagePT ? "Voltar ao Site" : "Back to site",
@@ -109,9 +109,10 @@ function App() {
                 </div>
 
                 <div className="div-footer">
-                    <button type="submit" disabled={Clicked}>
+                    <button type="submit" disabled={Clicked} className={Clicked ? "buttonDisable" : ""}>
                         <i className={Clicked ? "fa fa-spinner fa-spin" : "d-none"} /> {Clicked ? "Aguarde" : Labels.ButtonSave}
                     </button>
+                    <span className={Clicked ? "" : "d-none"}>{SaveClientWarn}<br/>Não saia da pagina!</span>
                 </div>
             </form>
             <Footer />

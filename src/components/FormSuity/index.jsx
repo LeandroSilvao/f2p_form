@@ -19,12 +19,13 @@ export default function States(props) {
     let questionsAnswers = []
 
     function OnChange(e) {
-        const { value, props } = e
+        const value = e.target.value
+        const suityQuestionId = e.target.getAttribute("id")
         const req = {
-            questionId: parseInt(props.suityQuestionId),
+            questionId: parseInt(suityQuestionId),
             answerId: parseInt(value)
         }
-        questionsAnswers = questionsAnswers.filter(q => q.questionId !== parseInt(props.suityQuestionId))
+        questionsAnswers = questionsAnswers.filter(q => q.questionId !== parseInt(suityQuestionId))
         questionsAnswers.push(req)
         _Json_FormSuity(questionsAnswers)
     }

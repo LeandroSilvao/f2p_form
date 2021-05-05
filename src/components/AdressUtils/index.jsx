@@ -26,19 +26,19 @@ export default function AdressUtils(props) {
     function setInput(e) {
         const { value, id } = e.target
         switch (id) {
-            case 'neighborhood':
+            case 'AduNeighborhood':
                 if (props.Attorney) setneighborhood(value)
                 else if (props.ClientAdress) setNeighborhood(value)
                 break;
-            case 'description':
+            case 'AduDescription':
                 if (props.Attorney) setdescription(value)
                 else if (props.ClientAdress) setDescription(value)
                 break;
-            case 'number':
+            case 'AduNumber':
                 if (props.Attorney) setnumber(value)
                 else if (props.ClientAdress) setNumber(value)
                 break;
-            case 'complement':
+            case 'AduComplement':
                 if (props.Attorney) setcomplement(value)
                 else if (props.ClientAdress) setComplement(value)
                 break;
@@ -56,7 +56,7 @@ export default function AdressUtils(props) {
                     <p className="required">*</p>
                     <p className="inputDescription">{Labels.neighborhood}</p>
                 </div>
-                <input required={required} onChange={e => setInput(e)} type="text" name="neighborhood" id="neighborhood"/>
+                <input required={required} onChange={e => setInput(e)} type="text" name="neighborhood" id="AduNeighborhood"/>
             </div>
 
 
@@ -65,7 +65,7 @@ export default function AdressUtils(props) {
                     <p className="required">*</p>
                     <p className="inputDescription">{Labels.description}</p>
                 </div>
-                <input required={required} onChange={e => setInput(e)} type="text" name="description" id="description"/>
+                <input required={required} onChange={e => setInput(e)} type="text" name="description" id="AduDescription"/>
             </div>
 
             <div className="d-flex-input d-flexdc">
@@ -73,7 +73,7 @@ export default function AdressUtils(props) {
                     <p className="required">*</p>
                     <p className="inputDescription">{Labels.number}</p>
                 </div>
-                <input required={required} onChange={e => setInput(e)} type="text" maxLength="20" name="number" id="number"/>
+                <input required={required} onChange={e => setInput(e)} type="text" maxLength="20" name="number" id="AduNumber"/>
             </div>
 
             <div className="d-flex-input d-flexdc">
@@ -81,7 +81,7 @@ export default function AdressUtils(props) {
                     <p className="required">*</p>
                     <p className="inputDescription">{Labels.complement}</p>
                 </div>
-                <input required={required} onChange={e => setInput(e)} type="text" name="complement" id="complement"/>
+                <input required={required} onChange={e => setInput(e)} type="text" name="complement" id="AduComplement"/>
             </div>
         </>
         /* </div> */
