@@ -85,13 +85,10 @@ export const FormProvider = (props) => {
   const [digit, setdigit] = useState('')
 
   useEffect(() => {
-    const url = window.location.pathname.split("/")
-    const enUS = url.filter(i => i === 'en')
-    if (enUS.length > 0) setLanguagePT(false)
-    else setLanguagePT(true)
-    setIsLevelUpModalOpen(true)
-    setSaveClientWarn('O cadastro está na fila de análise/aprovação interna')
-
+    // const url = window.location.pathname.split("/")
+    // const enUS = url.filter(i => i === 'en')
+    // if (enUS.length > 0) setLanguagePT(false)
+    // else setLanguagePT(true)
   }, [])
 
   function closeLevelUpModal() {
