@@ -77,7 +77,7 @@ export const FormContext = createContext(InitialState);
 export const FormProvider = (props) => {
   const [languagePT, setLanguagePT] = useState(true)
   const [Clicked, setClicked] = useState(false)
-  const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [SaveClientWarn, setSaveClientWarn] = useState(false);
 
   const [agency, setagency] = useState('')
@@ -89,10 +89,11 @@ export const FormProvider = (props) => {
     // const enUS = url.filter(i => i === 'en')
     // if (enUS.length > 0) setLanguagePT(false)
     // else setLanguagePT(true)
+    // setIsModalOpen(true)
   }, [])
 
   function closeLevelUpModal() {
-    setIsLevelUpModalOpen(false);
+    setIsModalOpen(false);
   }
 
   function _Json_ClientAddresses(obj) {
@@ -233,7 +234,7 @@ export const FormProvider = (props) => {
             console.log(bankAccount)
 
             clearInterval(interval)
-            setIsLevelUpModalOpen(true)
+            setIsModalOpen(true)
 
 
             // const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
@@ -322,7 +323,7 @@ export const FormProvider = (props) => {
       }}
     >
       {props.children}
-      {isLevelUpModalOpen && <Modal />}
+      {isModalOpen && <Modal />}
     </FormContext.Provider>
   );
 };

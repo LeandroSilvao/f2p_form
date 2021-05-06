@@ -10,41 +10,93 @@
     align-items: center;
 }
 
-.container {
+.modal {
+    display: flex;
+    flex-direction: column;
     background: var(--white);
-    width: 100%;
-    max-width: 400px;
+    width: 40%;
     padding: 2rem 3rem;
     border-radius: 5px;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
     text-align: center;
     position: relative;
 }
 
-.container header {
-    font-size: 8.75rem;
-    font-weight: 600;
-    color: var(--blue);
-    /* background: url('/icons/levelup.svg') no-repeat center; */
-    background-size: contain;
+.modal-header {
+    display: flex;
+    justify-content: center;
 }
 
-.container strong{
-    font-size: 2.25rem;
-    color: var(--title);
+.modal-header p {
+    font-family: 'Poppins';
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #1CB8AA;
 }
-.container p {
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    align-self: center;
+    margin: 80px 0 80px 0;
+}
+
+.modal-body p {
     font-size: 1.25rem;
     color: var(--text);
     margin-top: 0.25rem;
 }
 
-.container button {
+
+.modal-footer {}
+
+.modal-footer button {
+    color: #fff;
+    font-size: 1.125rem;
+    border: none;
+    background-color: #F49925;
     cursor: pointer;
-    position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
-    background: transparent;
-    border: 0;
-    font-size: 0;
+    padding: 15px 50px;
+}
+
+.modal-footer>button:hover {
+    background-color: #cc8120;
+}
+
+@media(max-width: 2560px) {
+    .modal {
+        width: 20%;
+    }
+}
+
+@media(max-width: 1440px) {
+    .modal {
+        width: 40%;
+    }
+}
+
+@media(max-width: 1024px) {
+    .modal {
+        width: 50%;
+    }
+}
+
+@media(max-width: 768px) {
+    .modal {
+        width: 60%;
+    }
+}
+
+@media(max-width: 540px) {
+    .modal {
+        width: 90%;
+    }
+}
+@media(max-width: 280px) {
+    .modal {
+        width: 100%;
+    }
 }
