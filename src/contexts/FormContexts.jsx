@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import axios from 'axios'
 import config from "../config";
-
-import { Error, Success, Warn } from '../components/Toastify/Toastify'
 import Modal from "../components/Modal";
 
 const InitialState = {
@@ -85,10 +83,6 @@ export const FormProvider = (props) => {
   const [digit, setdigit] = useState('')
 
   useEffect(() => {
-    // const url = window.location.pathname.split("/")
-    // const enUS = url.filter(i => i === 'en')
-    // if (enUS.length > 0) setLanguagePT(false)
-    // else setLanguagePT(true)
     // setIsModalOpen(true)
   }, [])
 
@@ -139,26 +133,17 @@ export const FormProvider = (props) => {
     const required = reqJSON.professionalOccupationId === 8 || reqJSON.professionalOccupationId === 9 ? false : true
     if (reqJSON.bankAccounts.length === 0) {
       const ErrorMessage = languagePT ? 'Adicione uma conta bancaria' : 'Add a bank account'
-      Warn(
-        "Addbankaccount",
-        ErrorMessage,
-        10000,
-        false
-      );
+      setSaveClientWarn(ErrorMessage)
+
     }
     else if (required && reqJSON.wealths.length === 0) {
       const ErrorMessage = languagePT ? 'Adicione um bem/finança' : 'Add a wealth / finance'
-      Warn(
-        "Addwealth/finance",
-        ErrorMessage,
-        10000,
-        false
-      );
+      setSaveClientWarn(ErrorMessage)
     }
     else {
       setClicked(true)
       setSaveClientWarn('')
-      console.log(JSON.stringify(reqJSON))
+      console.log(JSON.stringify(reqJSON,null,2))
       axios.post(config._urlSaveClient, reqJSON)
         .then(res => {
           if (res.data) {
@@ -174,46 +159,22 @@ export const FormProvider = (props) => {
               if (innerMessage.includes("spouse has a same Taxpayer as client")) err_message = "Cônjuge tem o mesmo cpf que o cliente"
               else err_message = innerMessage
               setSaveClientWarn(err_message)
-              // Error(
-              //   "SaveClient",
-              //   err_message,
-              //   20000,
-              //   false
-              // );
             }
             else {
               console.log('Error', err.message);
               const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
               setSaveClientWarn(ErrorMessage)
-              // Error(
-              //   "ErrorOnCreateClient",
-              //   ErrorMessage,
-              //   20000,
-              //   false
-              // );
             }
           }
           else if (err.request || err.response) {
             // The request was made but no response was received
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            // Error(
-            //   "ErrorOnCreateClient",
-            //   ErrorMessage,
-            //   20000,
-            //   false
-            // );
             setSaveClientWarn(ErrorMessage)
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
-            // Error(
-            //   "ErrorOnCreateClient",
-            //   ErrorMessage,
-            //   10000,
-            //   false
-            // );
             setSaveClientWarn(ErrorMessage)
           }
         })
@@ -230,18 +191,10 @@ export const FormProvider = (props) => {
             setagency(bankAccount.agency)
             setaccount(bankAccount.account)
             setdigit(bankAccount.digit)
-
             console.log(bankAccount)
-
             clearInterval(interval)
             setIsModalOpen(true)
-
-
-            // const SuccessMessage = languagePT ? 'Cadastro Concluido com Sucesso' : 'Registration Completed Successfully'
             setClicked(false)
-            // Success('ClientCreated', SuccessMessage, 5000, false)
-
-
           }
         })
         .catch(err => {
@@ -249,14 +202,14 @@ export const FormProvider = (props) => {
             // Request made and server responded
             if (err.response.data.innerMessage) {
               setClicked(true)
-              const WarnMessage = languagePT ? 'O cadastro está na fila de análise/aprovação interna' : 'The registration is in the internal review / approval queue'
-              setSaveClientWarn(WarnMessage)
-              // Warn(
-              //   "RegistryInQueue",
-              //   WarnMessage,
-              //   10000,
-              //   false
-              // );
+              setSaveClientWarn(err.response.data.innerMessage)
+            }
+            else {
+              setClicked(false)
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', err.message);
+              const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
+              setSaveClientWarn(ErrorMessage)
             }
           }
           else if (err.request) {
@@ -265,24 +218,13 @@ export const FormProvider = (props) => {
             console.log(err.request);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
             setSaveClientWarn(ErrorMessage)
-            // Error(
-            //   "ErrorOnCreateClient",
-            //   ErrorMessage,
-            //   10000,
-            //   false
-            // );
+
           } else {
             setClicked(false)
             // Something happened in setting up the request that triggered an Error
             console.log('Error', err.message);
             const ErrorMessage = languagePT ? 'Ocorreu um erro, verifique as informações e tente novamente. Caso persista tente novamente mais tarde.' : 'An error occurred, check the information and try again. If it persists, try again later.'
             setSaveClientWarn(ErrorMessage)
-            // Error(
-            //   "ErrorOnCreateClient",
-            //   ErrorMessage,
-            //   10000,
-            //   false
-            // );
           }
         })
     }, 10000);
